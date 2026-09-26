@@ -30,37 +30,81 @@
     <!-- Header -->
     <header class="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 px-4 lg:px-6 py-3 flex items-center justify-between shrink-0 z-50">
         <div class="flex items-center space-x-3">
-            <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-blue-500/30">
+            <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-blue-500/30 shrink-0">
                 <i class="fa-solid fa-bolt text-white text-base"></i>
             </div>
             <div>
-                <h1 class="font-bold text-base text-slate-100 flex items-center gap-2">
-                    <span>Dashboard กฎของโอห์ม (PhET Lab)</span>
-                    <span class="text-[10px] bg-blue-500/20 text-blue-400 border border-blue-500/30 px-2 py-0.5 rounded-full font-normal">Interactive Physics</span>
+                <h1 class="font-bold text-sm sm:text-base text-slate-100 flex flex-wrap items-center gap-1 sm:gap-2">
+                    <span>Dashboard กฎของโอห์ม</span>
+                    <span class="hidden sm:inline">(PhET Lab)</span>
+                    <span class="text-[9px] sm:text-[10px] bg-blue-500/20 text-blue-400 border border-blue-500/30 px-2 py-0.5 rounded-full font-normal">Interactive Physics</span>
                 </h1>
-                <p class="text-[11px] text-slate-400">โปรแกรมจำลอง PhET Interactive Simulations กฎของโอห์ม พร้อมคู่มือการทดลองแบบเรียลไทม์</p>
+                <p class="hidden md:block text-[11px] text-slate-400">โปรแกรมจำลอง PhET Interactive Simulations กฎของโอห์ม พร้อมคู่มือการทดลองแบบเรียลไทม์</p>
             </div>
         </div>
         
-        <div class="flex items-center space-x-3">
+        <div class="flex items-center space-x-2 sm:space-x-3">
             <!-- History Popup Button -->
-            <button onclick="openHistoryModal()" class="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white text-xs font-semibold px-3 py-2 rounded-xl shadow-lg shadow-amber-500/20 flex items-center gap-2 transition cursor-pointer border border-amber-400/30">
+            <button onclick="openHistoryModal()" class="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white text-xs font-semibold px-2.5 sm:px-3 py-2 rounded-xl shadow-lg shadow-amber-500/20 flex items-center gap-2 transition cursor-pointer border border-amber-400/30" aria-label="ประวัติโอห์ม">
                 <i class="fa-solid fa-user-clock"></i>
-                <span class="hidden sm:inline">ประวัติโอห์ม</span>
+                <span class="hidden lg:inline">ประวัติโอห์ม</span>
             </button>
 
             <!-- Learning Popup Button -->
-            <button onclick="openLearningModal()" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-semibold px-3 py-2 rounded-xl shadow-lg shadow-blue-500/20 flex items-center gap-2 transition cursor-pointer border border-blue-400/30">
+            <button onclick="openLearningModal()" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-semibold px-2.5 sm:px-3 py-2 rounded-xl shadow-lg shadow-blue-500/20 flex items-center gap-2 transition cursor-pointer border border-blue-400/30" aria-label="เข้าเรียนรู้ กฎของโอห์ม">
                 <i class="fa-solid fa-book-open-reader"></i>
-                <span>เข้าเรียนรู้ กฎของโอห์ม</span>
+                <span class="hidden md:inline">เข้าเรียนรู้ กฎของโอห์ม</span>
             </button>
 
             <!-- Developer Profile Badge -->
-            <div class="flex items-center space-x-3 bg-slate-800/80 border border-slate-700/60 px-3 py-1.5 rounded-full shadow-md">
-                <img src="https://github.com/metawat888/Picture/raw/69f9d3a46e017adc43abb8db3503ea8106ecae61/97488303_2887790847941184_353651305119481856_n.jpg" alt="นายเมธาวัฒน์ พงสะพัง" class="w-8 h-8 rounded-full object-cover border-2 border-blue-500" onerror="this.src='https://placehold.co/100x100/2563eb/ffffff?text=M'">
-                <div class="text-left pr-1">
-                    <p class="text-[10px] text-slate-400 leading-tight">พัฒนาโดย</p>
-                    <p class="text-xs font-semibold text-slate-200 leading-tight">นายเมธาวัฒน์ พงสะพัง</p>
+            <div class="flex items-center space-x-2 sm:space-x-3 bg-slate-800/80 border border-slate-700/60 px-2 sm:px-3 py-1.5 rounded-full shadow-md">
+                <img src="https://github.com/metawat888/Picture/raw/69f9d3a46e017adc43abb8db3503ea8106ecae61/97488303_2887790847941184_353651305119481856_n.jpg" alt="นายเมธาวัฒน์ พงสะพัง" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full object-cover border-2 border-blue-500" onerror="this.src='https://placehold.co/100x100/2563eb/ffffff?text=M'">
+                <div class="text-left pr-1 hidden sm:block">
+                    <p class="text-[9px] sm:text-[10px] text-slate-400 leading-tight">พัฒนาโดย</p>
+                    <p class="text-[10px] sm:text-xs font-semibold text-slate-200 leading-tight">นายเมธาวัฒน์ พงสะพัง</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Layout (Stack on mobile, Split on desktop) -->
+    <main class="flex-1 flex flex-col lg:flex-row overflow-hidden">
+        
+        <!-- Interactive Area: PhET Simulation (Moved to top for mobile) -->
+        <section class="w-full lg:w-[70%] xl:w-[80%] flex flex-col bg-slate-900 relative order-1 lg:order-2 h-[50vh] lg:h-auto shrink-0 lg:shrink">
+            <div class="bg-slate-800/80 px-3 sm:px-4 py-2 border-b lg:border-l border-slate-700/50 flex items-center justify-between text-xs text-slate-400 shrink-0">
+                <div class="flex items-center gap-2 overflow-hidden">
+                    <span class="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-red-500 inline-block shrink-0"></span>
+                    <span class="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-yellow-500 inline-block shrink-0"></span>
+                    <span class="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-green-500 inline-block shrink-0"></span>
+                    <span class="ml-1 sm:ml-2 font-mono text-slate-300 text-[9px] sm:text-[11px] truncate w-32 sm:w-auto">https://phet.colorado.edu/sims/html/ohms-law/latest/ohms-law_th.html</span>
+                </div>
+                <div class="flex items-center gap-3 shrink-0 pl-2">
+                    <button onclick="reloadIframe()" class="hover:text-white transition flex items-center gap-1 cursor-pointer text-[10px] sm:text-xs"><i class="fa-solid fa-rotate-right"></i> <span class="hidden sm:inline">รีโหลด</span></button>
+                </div>
+            </div>
+            <div class="w-full flex-1 bg-black relative flex items-center justify-center">
+                <iframe id="phet-iframe" src="https://phet.colorado.edu/sims/html/ohms-law/latest/ohms-law_th.html" class="w-full h-full border-0 lg:border-l border-slate-700/50" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <!-- Sidebar: Experiment Guide & Interactive Animations -->
+        <aside class="w-full lg:w-[30%] xl:w-[20%] min-w-[280px] bg-slate-900 border-t lg:border-t-0 lg:border-r border-slate-800 flex flex-col overflow-y-auto p-4 space-y-4 sm:space-y-6 order-2 lg:order-1 h-[50vh] lg:h-auto custom-scrollbar">
+            <div class="flex items-center gap-2.5 pb-2 sm:pb-3 border-b border-slate-800 sticky top-0 bg-slate-900 z-10 pt-1">
+                <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center border border-blue-500/30 shrink-0">
+                    <i class="fa-solid fa-flask text-[10px] sm:text-xs"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-sm text-slate-100 leading-tight">คู่มือการทดลอง</h3>
+                    <p class="text-[9px] sm:text-[10px] text-slate-400">ปรับค่าด้านล่างแล้วสังเกตผลในจอจำลอง</p>
+                </div>
+            </div>
+
+            <!-- Experiment 1 -->
+            <div class="bg-slate-800/60 border border-slate-700/50 p-3 sm:p-4 rounded-xl hover:border-blue-500/50 transition space-y-2 sm:space-y-3">
+                <div>
+                    <span class="text-[9px] sm:text-[10px] font-semibold text-blue-400 uppercase tracking-wider block mb-0.5">การทดลองที่ 1</span>
+                    <p class="font-medium text-[11px] sm:text-xs text-slate-200">R คงที่: เมื่อ <span class="text-blue-400 font-mono">V เพิ่ม ➔ I เพิ่ม</span></p>
                 </div>
             </div>
         </div>
