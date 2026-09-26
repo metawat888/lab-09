@@ -23,43 +23,60 @@
         .animate-glow {
             animation: pulse-glow 3s infinite ease-in-out;
         }
+        /* Custom scrollbar for desktop sidebar */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.5); 
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(51, 65, 85, 0.8);
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(71, 85, 105, 1);
+        }
+        /* Transition for smooth scaling */
+        .smooth-scale {
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), height 0.3s ease;
+        }
     </style>
 </head>
 <body class="bg-slate-950 text-slate-100 h-full flex flex-col selection:bg-blue-500 selection:text-white overflow-hidden">
 
     <!-- Header -->
-    <header class="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 px-4 lg:px-6 py-3 flex items-center justify-between shrink-0 z-50">
-        <div class="flex items-center space-x-3">
-            <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-blue-500/30 shrink-0">
-                <i class="fa-solid fa-bolt text-white text-base"></i>
+    <header class="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 px-3 lg:px-6 py-3 flex items-center justify-between shrink-0 z-50">
+        <div class="flex items-center space-x-2 sm:space-x-3">
+            <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-blue-500/30 shrink-0">
+                <i class="fa-solid fa-bolt text-white text-sm sm:text-base"></i>
             </div>
             <div>
                 <h1 class="font-bold text-sm sm:text-base text-slate-100 flex flex-wrap items-center gap-1 sm:gap-2">
                     <span>Dashboard กฎของโอห์ม</span>
-                    <span class="hidden sm:inline">(PhET Lab)</span>
-                    <span class="text-[9px] sm:text-[10px] bg-blue-500/20 text-blue-400 border border-blue-500/30 px-2 py-0.5 rounded-full font-normal">Interactive Physics</span>
+                    <span class="text-[9px] sm:text-[10px] bg-blue-500/20 text-blue-400 border border-blue-500/30 px-2 py-0.5 rounded-full font-normal hidden sm:inline-block">Interactive Physics</span>
                 </h1>
-                <p class="hidden md:block text-[11px] text-slate-400">โปรแกรมจำลอง PhET Interactive Simulations กฎของโอห์ม พร้อมคู่มือการทดลองแบบเรียลไทม์</p>
+                <p class="hidden md:block text-[11px] text-slate-400">โปรแกรมจำลอง PhET พร้อมคู่มือแบบเรียลไทม์</p>
             </div>
         </div>
         
-        <div class="flex items-center space-x-2 sm:space-x-3">
+        <div class="flex items-center space-x-1.5 sm:space-x-3">
             <!-- History Popup Button -->
-            <button onclick="openHistoryModal()" class="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white text-xs font-semibold px-2.5 sm:px-3 py-2 rounded-xl shadow-lg shadow-amber-500/20 flex items-center gap-2 transition cursor-pointer border border-amber-400/30" aria-label="ประวัติโอห์ม">
+            <button onclick="openHistoryModal()" class="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white text-[10px] sm:text-xs font-semibold px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg sm:rounded-xl shadow-lg flex items-center gap-1.5 sm:gap-2 transition cursor-pointer border border-amber-400/30" aria-label="ประวัติโอห์ม">
                 <i class="fa-solid fa-user-clock"></i>
-                <span class="hidden lg:inline">ประวัติโอห์ม</span>
+                <span class="hidden sm:inline">ประวัติโอห์ม</span>
             </button>
 
             <!-- Learning Popup Button -->
-            <button onclick="openLearningModal()" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-semibold px-2.5 sm:px-3 py-2 rounded-xl shadow-lg shadow-blue-500/20 flex items-center gap-2 transition cursor-pointer border border-blue-400/30" aria-label="เข้าเรียนรู้ กฎของโอห์ม">
+            <button onclick="openLearningModal()" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-[10px] sm:text-xs font-semibold px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg sm:rounded-xl shadow-lg flex items-center gap-1.5 sm:gap-2 transition cursor-pointer border border-blue-400/30" aria-label="เข้าเรียนรู้">
                 <i class="fa-solid fa-book-open-reader"></i>
-                <span class="hidden md:inline">เข้าเรียนรู้ กฎของโอห์ม</span>
+                <span class="hidden sm:inline">เข้าเรียนรู้</span>
             </button>
 
             <!-- Developer Profile Badge -->
-            <div class="flex items-center space-x-2 sm:space-x-3 bg-slate-800/80 border border-slate-700/60 px-2 sm:px-3 py-1.5 rounded-full shadow-md">
-                <img src="https://github.com/metawat888/Picture/raw/69f9d3a46e017adc43abb8db3503ea8106ecae61/97488303_2887790847941184_353651305119481856_n.jpg" alt="นายเมธาวัฒน์ พงสะพัง" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full object-cover border-2 border-blue-500" onerror="this.src='https://placehold.co/100x100/2563eb/ffffff?text=M'">
-                <div class="text-left pr-1 hidden sm:block">
+            <div class="flex items-center space-x-2 sm:space-x-3 bg-slate-800/80 border border-slate-700/60 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full shadow-md ml-1 sm:ml-2">
+                <img src="https://github.com/metawat888/Picture/raw/69f9d3a46e017adc43abb8db3503ea8106ecae61/97488303_2887790847941184_353651305119481856_n.jpg" alt="นายเมธาวัฒน์ พงสะพัง" class="w-6 h-6 sm:w-8 sm:h-8 rounded-full object-cover border border-blue-500" onerror="this.src='https://placehold.co/100x100/2563eb/ffffff?text=M'">
+                <div class="text-left pr-1 hidden lg:block">
                     <p class="text-[9px] sm:text-[10px] text-slate-400 leading-tight">พัฒนาโดย</p>
                     <p class="text-[10px] sm:text-xs font-semibold text-slate-200 leading-tight">นายเมธาวัฒน์ พงสะพัง</p>
                 </div>
@@ -67,184 +84,20 @@
         </div>
     </header>
 
-    <!-- Main Layout (Stack on mobile, Split on desktop) -->
+    <!-- Main Split Layout: flex-col for Mobile (PhET top, Guide bottom), lg:flex-row for Desktop -->
     <main class="flex-1 flex flex-col lg:flex-row overflow-hidden">
         
-        <!-- Interactive Area: PhET Simulation (Moved to top for mobile) -->
-        <section class="w-full lg:w-[70%] xl:w-[80%] flex flex-col bg-slate-900 relative order-1 lg:order-2 h-[50vh] lg:h-auto shrink-0 lg:shrink">
-            <div class="bg-slate-800/80 px-3 sm:px-4 py-2 border-b lg:border-l border-slate-700/50 flex items-center justify-between text-xs text-slate-400 shrink-0">
+        <!-- Interactive Area: PhET Simulation (order-1 on mobile so it's on top, order-2 on desktop) -->
+        <section class="w-full lg:w-[60%] flex flex-col bg-slate-900 relative order-1 lg:order-2 h-[50vh] lg:h-full border-b lg:border-b-0 lg:border-l border-slate-800 shrink-0 z-0">
+            <div class="bg-slate-800/80 px-3 sm:px-4 py-2 border-b border-slate-700/50 flex items-center justify-between text-xs text-slate-400 shrink-0">
                 <div class="flex items-center gap-2 overflow-hidden">
                     <span class="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-red-500 inline-block shrink-0"></span>
                     <span class="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-yellow-500 inline-block shrink-0"></span>
                     <span class="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-green-500 inline-block shrink-0"></span>
-                    <span class="ml-1 sm:ml-2 font-mono text-slate-300 text-[9px] sm:text-[11px] truncate w-32 sm:w-auto">https://phet.colorado.edu/sims/html/ohms-law/latest/ohms-law_th.html</span>
+                    <span class="ml-1 sm:ml-2 font-mono text-slate-300 text-[9px] sm:text-[11px] truncate max-w-[200px] sm:max-w-none">https://phet.colorado.edu/sims/html/ohms-law/latest/ohms-law_th.html</span>
                 </div>
                 <div class="flex items-center gap-3 shrink-0 pl-2">
                     <button onclick="reloadIframe()" class="hover:text-white transition flex items-center gap-1 cursor-pointer text-[10px] sm:text-xs"><i class="fa-solid fa-rotate-right"></i> <span class="hidden sm:inline">รีโหลด</span></button>
-                </div>
-            </div>
-            <div class="w-full flex-1 bg-black relative flex items-center justify-center">
-                <iframe id="phet-iframe" src="https://phet.colorado.edu/sims/html/ohms-law/latest/ohms-law_th.html" class="w-full h-full border-0 lg:border-l border-slate-700/50" allowfullscreen></iframe>
-            </div>
-        </section>
-
-        <!-- Sidebar: Experiment Guide & Interactive Animations -->
-        <aside class="w-full lg:w-[30%] xl:w-[20%] min-w-[280px] bg-slate-900 border-t lg:border-t-0 lg:border-r border-slate-800 flex flex-col overflow-y-auto p-4 space-y-4 sm:space-y-6 order-2 lg:order-1 h-[50vh] lg:h-auto custom-scrollbar">
-            <div class="flex items-center gap-2.5 pb-2 sm:pb-3 border-b border-slate-800 sticky top-0 bg-slate-900 z-10 pt-1">
-                <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center border border-blue-500/30 shrink-0">
-                    <i class="fa-solid fa-flask text-[10px] sm:text-xs"></i>
-                </div>
-                <div>
-                    <h3 class="font-bold text-sm text-slate-100 leading-tight">คู่มือการทดลอง</h3>
-                    <p class="text-[9px] sm:text-[10px] text-slate-400">ปรับค่าด้านล่างแล้วสังเกตผลในจอจำลอง</p>
-                </div>
-            </div>
-
-            <!-- Experiment 1 -->
-            <div class="bg-slate-800/60 border border-slate-700/50 p-3 sm:p-4 rounded-xl hover:border-blue-500/50 transition space-y-2 sm:space-y-3">
-                <div>
-                    <span class="text-[9px] sm:text-[10px] font-semibold text-blue-400 uppercase tracking-wider block mb-0.5">การทดลองที่ 1</span>
-                    <p class="font-medium text-[11px] sm:text-xs text-slate-200">R คงที่: เมื่อ <span class="text-blue-400 font-mono">V เพิ่ม ➔ I เพิ่ม</span></p>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Main Split Layout (Left: 20%, Right: 80%) -->
-    <main class="flex-1 flex overflow-hidden">
-        
-        <!-- Left Sidebar: Experiment Guide & Interactive Animations (20%) -->
-        <aside class="w-[20%] min-w-[280px] bg-slate-900 border-r border-slate-800 flex flex-col overflow-y-auto p-4 space-y-6">
-            <div class="flex items-center gap-2.5 pb-3 border-b border-slate-800">
-                <div class="w-7 h-7 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center border border-blue-500/30 shrink-0">
-                    <i class="fa-solid fa-flask text-xs"></i>
-                </div>
-                <div>
-                    <h3 class="font-bold text-sm text-slate-100 leading-tight">คู่มือการทดลอง</h3>
-                    <p class="text-[10px] text-slate-400">ปรับค่าและสังเกตแอนิเมชัน</p>
-                </div>
-            </div>
-
-            <!-- Experiment 1 -->
-            <div class="bg-slate-800/60 border border-slate-700/50 p-4 rounded-xl hover:border-blue-500/50 transition space-y-3">
-                <div>
-                    <span class="text-[10px] font-semibold text-blue-400 uppercase tracking-wider block mb-0.5">การทดลองที่ 1</span>
-                    <p class="font-medium text-xs text-slate-200">R คงที่: เมื่อ <span class="text-blue-400 font-mono">V เพิ่ม ➔ I เพิ่ม</span></p>
-                </div>
-
-                <!-- Interactive Control 1 -->
-                <div class="space-y-1 bg-slate-900/80 p-2.5 rounded-lg border border-slate-800">
-                    <div class="flex justify-between text-[11px] font-mono">
-                        <span class="text-slate-300">แรงดัน (V):</span>
-                        <span id="val-v1" class="text-blue-400 font-bold">10 V</span>
-                    </div>
-                    <input type="range" id="slider-v1" min="1" max="20" value="10" step="1" oninput="updateExp1()" class="w-full accent-blue-500 cursor-pointer">
-                </div>
-
-                <!-- Animation Container 1 -->
-                <div class="bg-slate-950/80 border border-slate-800 rounded-lg p-3 relative flex flex-col gap-3 overflow-hidden">
-                    <div class="absolute inset-0 bg-blue-500/5 animate-glow pointer-events-none"></div>
-                    
-                    <div class="z-10 flex items-center justify-between text-[11px] font-mono text-slate-400 border-b border-slate-800/80 pb-2">
-                        <span>R = <strong class="text-blue-400">10 Ω</strong></span>
-                        <span id="status-text-1" class="text-emerald-400 font-semibold text-[10px]">กระแสไหลปกติ</span>
-                    </div>
-
-                    <div class="z-10 flex items-center justify-around gap-2 py-1">
-                        <div id="badge-v1" class="px-3 py-1.5 rounded-full bg-blue-600/30 border border-blue-500 text-[11px] font-mono text-blue-300 font-bold transition-all duration-150 shadow-md">
-                            V: 10V
-                        </div>
-                        <div id="badge-i1" class="px-3 py-1.5 rounded-full bg-emerald-600/30 border border-emerald-500 text-[11px] font-mono text-emerald-300 font-bold transition-all duration-150 shadow-md">
-                            I: 1.00A
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Experiment 2 -->
-            <div class="bg-slate-800/60 border border-slate-700/50 p-4 rounded-xl hover:border-blue-500/50 transition space-y-3">
-                <div>
-                    <span class="text-[10px] font-semibold text-blue-400 uppercase tracking-wider block mb-0.5">การทดลองที่ 2</span>
-                    <p class="font-medium text-xs text-slate-200">V คงที่: เมื่อ <span class="text-purple-400 font-mono">R เพิ่ม ➔ I ลด</span></p>
-                </div>
-
-                <!-- Interactive Control 2 -->
-                <div class="space-y-1 bg-slate-900/80 p-2.5 rounded-lg border border-slate-800">
-                    <div class="flex justify-between text-[11px] font-mono">
-                        <span class="text-slate-300">ความต้านทาน (R):</span>
-                        <span id="val-r2" class="text-purple-400 font-bold">10 Ω</span>
-                    </div>
-                    <input type="range" id="slider-r2" min="2" max="20" value="10" step="1" oninput="updateExp2()" class="w-full accent-purple-500 cursor-pointer">
-                </div>
-
-                <!-- Animation Container 2 -->
-                <div class="bg-slate-950/80 border border-slate-800 rounded-lg p-3 relative flex flex-col gap-3 overflow-hidden">
-                    <div class="absolute inset-0 bg-purple-500/5 animate-glow pointer-events-none"></div>
-                    
-                    <div class="z-10 flex items-center justify-between text-[11px] font-mono text-slate-400 border-b border-slate-800/80 pb-2">
-                        <span>V = <strong class="text-purple-400">10 V</strong></span>
-                        <span id="status-text-2" class="text-rose-400 font-semibold text-[10px]">ต้านทานปานกลาง</span>
-                    </div>
-
-                    <div class="z-10 flex items-center justify-around gap-2 py-1">
-                        <div id="badge-r2" class="px-3 py-1.5 rounded-full bg-amber-600/30 border border-amber-500 text-[11px] font-mono text-amber-300 font-bold transition-all duration-150 shadow-md">
-                            R: 10Ω
-                        </div>
-                        <div id="badge-i2" class="px-3 py-1.5 rounded-full bg-rose-600/30 border border-rose-500 text-[11px] font-mono text-rose-300 font-bold transition-all duration-150 shadow-md">
-                            I: 1.00A
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Experiment 3 -->
-            <div class="bg-slate-800/60 border border-slate-700/50 p-4 rounded-xl hover:border-blue-500/50 transition space-y-3">
-                <div>
-                    <span class="text-[10px] font-semibold text-blue-400 uppercase tracking-wider block mb-0.5">การทดลองที่ 3</span>
-                    <p class="font-medium text-xs text-slate-200">I คงที่: เมื่อ <span class="text-amber-400 font-mono">R เพิ่ม ➔ V เพิ่ม</span></p>
-                </div>
-
-                <!-- Interactive Control 3 -->
-                <div class="space-y-1 bg-slate-900/80 p-2.5 rounded-lg border border-slate-800">
-                    <div class="flex justify-between text-[11px] font-mono">
-                        <span class="text-slate-300">ความต้านทาน (R):</span>
-                        <span id="val-r3" class="text-amber-400 font-bold">10 Ω</span>
-                    </div>
-                    <input type="range" id="slider-r3" min="2" max="20" value="10" step="1" oninput="updateExp3()" class="w-full accent-amber-500 cursor-pointer">
-                </div>
-
-                <!-- Animation Container 3 -->
-                <div class="bg-slate-950/80 border border-slate-800 rounded-lg p-3 relative flex flex-col gap-3 overflow-hidden">
-                    <div class="absolute inset-0 bg-emerald-500/5 animate-glow pointer-events-none"></div>
-                    
-                    <div class="z-10 flex items-center justify-between text-[11px] font-mono text-slate-400 border-b border-slate-800/80 pb-2">
-                        <span>I = <strong class="text-emerald-400">1.0 A</strong></span>
-                        <span id="status-text-3" class="text-blue-400 font-semibold text-[10px]">แรงดันสมดุล</span>
-                    </div>
-
-                    <div class="z-10 flex items-center justify-around gap-2 py-1">
-                        <div id="badge-v3" class="px-3 py-1.5 rounded-full bg-blue-600/30 border border-blue-500 text-[11px] font-mono text-blue-300 font-bold transition-all duration-150 shadow-md">
-                            V: 10V
-                        </div>
-                        <div id="badge-r3" class="px-3 py-1.5 rounded-full bg-amber-600/30 border border-amber-500 text-[11px] font-mono text-amber-300 font-bold transition-all duration-150 shadow-md">
-                            R: 10Ω
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </aside>
-
-        <!-- Right Content Area: PhET Simulation (80%) -->
-        <section class="w-[80%] flex flex-col bg-slate-900 relative">
-            <div class="bg-slate-800/80 px-4 py-2 border-b border-slate-700/50 flex items-center justify-between text-xs text-slate-400 shrink-0">
-                <div class="flex items-center gap-2">
-                    <span class="w-3 h-3 rounded-full bg-red-500 inline-block"></span>
-                    <span class="w-3 h-3 rounded-full bg-yellow-500 inline-block"></span>
-                    <span class="w-3 h-3 rounded-full bg-green-500 inline-block"></span>
-                    <span class="ml-2 font-mono text-slate-300 text-[11px]">https://phet.colorado.edu/sims/html/ohms-law/latest/ohms-law_th.html</span>
-                </div>
-                <div class="flex items-center gap-3">
-                    <button onclick="reloadIframe()" class="hover:text-white transition flex items-center gap-1 cursor-pointer"><i class="fa-solid fa-rotate-right"></i> รีโหลด</button>
                 </div>
             </div>
             <div class="w-full flex-1 bg-black relative flex items-center justify-center">
@@ -252,121 +105,224 @@
             </div>
         </section>
 
+        <!-- Sidebar: Unified Experiment Guide (order-2 on mobile so it's on bottom, order-1 on desktop) -->
+        <aside class="w-full lg:w-[40%] min-w-[300px] bg-slate-900 flex flex-col overflow-y-auto p-4 lg:p-6 space-y-4 lg:space-y-6 order-2 lg:order-1 flex-1 lg:h-full custom-scrollbar pb-10 lg:pb-6 z-10 shadow-[0_-10px_20px_rgba(0,0,0,0.3)] lg:shadow-none">
+            
+            <div class="flex items-center gap-3 pb-3 border-b border-slate-800 sticky top-0 bg-slate-900 z-20 pt-1">
+                <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center border border-blue-500/30 shrink-0">
+                    <i class="fa-solid fa-sliders text-xs sm:text-sm"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-base sm:text-lg text-slate-100 leading-tight">แผงควบคุมความสัมพันธ์</h3>
+                    <p class="text-xs sm:text-sm text-slate-400">ปรับเพิ่ม-ลดค่าเพื่อสังเกตการเปลี่ยนแปลง</p>
+                </div>
+            </div>
+
+            <!-- Unified Interactive Simulator Tool -->
+            <div class="bg-slate-800/60 border border-slate-700/60 p-5 rounded-2xl flex flex-col items-center justify-center gap-6 shadow-xl shadow-black/40">
+                
+                <!-- Status & Feedback Screen -->
+                <div class="w-full bg-slate-950/80 p-3 rounded-xl border border-slate-700 flex items-center justify-center min-h-[50px]">
+                    <p id="relationship-status" class="text-xs sm:text-sm md:text-base font-medium text-blue-300 text-center transition-colors duration-300">
+                        พร้อมทดลอง: กด + หรือ - ที่ตัวแปรด้านล่าง
+                    </p>
+                </div>
+
+                <!-- Equation & Bars Visualizer -->
+                <div class="flex items-end justify-between w-full h-[180px] px-2 sm:px-6 relative border-b border-slate-800/80 pb-4">
+                    
+                    <!-- V Column -->
+                    <div class="flex flex-col items-center justify-end h-full w-[28%] space-y-3">
+                        <!-- Bar -->
+                        <div class="w-8 sm:w-10 h-24 bg-slate-900 rounded-md relative overflow-hidden border border-slate-700 mx-auto shadow-inner shadow-black">
+                            <div id="bar-v" class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-blue-700 to-blue-400 smooth-scale" style="height: 50%;"></div>
+                        </div>
+                        <!-- Letter -->
+                        <div class="h-12 flex items-center justify-center relative w-full">
+                            <span id="text-v" class="font-bold text-blue-400 smooth-scale absolute" style="font-size: 2rem;">V</span>
+                        </div>
+                    </div>
+                    
+                    <span class="text-3xl sm:text-4xl font-bold text-slate-600 mb-3 shrink-0">=</span>
+                    
+                    <!-- I Column -->
+                    <div class="flex flex-col items-center justify-end h-full w-[28%] space-y-3">
+                        <!-- Bar -->
+                        <div class="w-8 sm:w-10 h-24 bg-slate-900 rounded-md relative overflow-hidden border border-slate-700 mx-auto shadow-inner shadow-black">
+                            <div id="bar-i" class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-emerald-700 to-emerald-400 smooth-scale" style="height: 10%;"></div>
+                        </div>
+                        <!-- Letter -->
+                        <div class="h-12 flex items-center justify-center relative w-full">
+                            <span id="text-i" class="font-bold text-emerald-400 smooth-scale absolute" style="font-size: 2rem;">I</span>
+                        </div>
+                    </div>
+
+                    <span class="text-2xl sm:text-3xl font-bold text-slate-600 mb-4 shrink-0">×</span>
+
+                    <!-- R Column -->
+                    <div class="flex flex-col items-center justify-end h-full w-[28%] space-y-3">
+                        <!-- Bar -->
+                        <div class="w-8 sm:w-10 h-24 bg-slate-900 rounded-md relative overflow-hidden border border-slate-700 mx-auto shadow-inner shadow-black">
+                            <div id="bar-r" class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-amber-700 to-amber-400 smooth-scale" style="height: 50%;"></div>
+                        </div>
+                        <!-- Letter -->
+                        <div class="h-12 flex items-center justify-center relative w-full">
+                            <span id="text-r" class="font-bold text-amber-400 smooth-scale absolute" style="font-size: 2rem;">R</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Controls (+ / -) -->
+                <div class="grid grid-cols-3 gap-3 w-full">
+                    
+                    <!-- V Controls -->
+                    <div class="flex flex-col items-center bg-slate-900 p-3 rounded-xl border border-blue-500/20 shadow-lg">
+                        <span class="text-[10px] sm:text-xs text-slate-400 mb-1">แรงดันไฟฟ้า</span>
+                        <span id="val-v" class="font-mono text-sm sm:text-base font-bold text-blue-400 mb-3">10.0 V</span>
+                        <div class="flex gap-1.5 w-full h-8 sm:h-10">
+                            <button onclick="changeV(-1)" class="flex-1 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-white flex items-center justify-center transition cursor-pointer active:scale-95"><i class="fa-solid fa-minus text-xs"></i></button>
+                            <button onclick="changeV(1)" class="flex-1 bg-blue-600/80 hover:bg-blue-500 border border-blue-500/50 rounded-lg text-white flex items-center justify-center transition cursor-pointer active:scale-95"><i class="fa-solid fa-plus text-xs"></i></button>
+                        </div>
+                    </div>
+                    
+                    <!-- I Controls -->
+                    <div class="flex flex-col items-center bg-slate-900 p-3 rounded-xl border border-emerald-500/20 shadow-lg">
+                        <span class="text-[10px] sm:text-xs text-slate-400 mb-1">กระแสไฟฟ้า</span>
+                        <span id="val-i" class="font-mono text-sm sm:text-base font-bold text-emerald-400 mb-3">1.00 A</span>
+                        <div class="flex gap-1.5 w-full h-8 sm:h-10">
+                            <button onclick="changeI(-0.2)" class="flex-1 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-white flex items-center justify-center transition cursor-pointer active:scale-95"><i class="fa-solid fa-minus text-xs"></i></button>
+                            <button onclick="changeI(0.2)" class="flex-1 bg-emerald-600/80 hover:bg-emerald-500 border border-emerald-500/50 rounded-lg text-white flex items-center justify-center transition cursor-pointer active:scale-95"><i class="fa-solid fa-plus text-xs"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- R Controls -->
+                    <div class="flex flex-col items-center bg-slate-900 p-3 rounded-xl border border-amber-500/20 shadow-lg">
+                        <span class="text-[10px] sm:text-xs text-slate-400 mb-1">ความต้านทาน</span>
+                        <span id="val-r" class="font-mono text-sm sm:text-base font-bold text-amber-400 mb-3">10.0 Ω</span>
+                        <div class="flex gap-1.5 w-full h-8 sm:h-10">
+                            <button onclick="changeR(-1)" class="flex-1 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-white flex items-center justify-center transition cursor-pointer active:scale-95"><i class="fa-solid fa-minus text-xs"></i></button>
+                            <button onclick="changeR(1)" class="flex-1 bg-amber-600/80 hover:bg-amber-500 border border-amber-500/50 rounded-lg text-white flex items-center justify-center transition cursor-pointer active:scale-95"><i class="fa-solid fa-plus text-xs"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="bg-blue-950/30 border border-blue-900/40 p-4 rounded-xl flex gap-3 items-start">
+                <i class="fa-solid fa-circle-info text-blue-400 text-sm mt-0.5"></i>
+                <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                    สังเกตการเปลี่ยนแปลงของแท่งกราฟและขนาดตัวอักษร <strong>V, I, R</strong> เมื่อคุณกดเพิ่มหรือลดค่า จะช่วยให้เห็นภาพความสัมพันธ์ทางคณิตศาสตร์ได้ชัดเจนยิ่งขึ้น
+                </p>
+            </div>
+            
+        </aside>
+
     </main>
 
     <!-- Learning Modal Popup -->
-    <div id="learning-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div id="learning-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[100] flex items-center justify-center p-4 hidden">
         <div class="bg-slate-900 border border-slate-700 w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
-            <div class="bg-slate-800 px-6 py-4 border-b border-slate-700 flex items-center justify-between">
+            <div class="bg-slate-800 px-4 sm:px-6 py-3 sm:py-4 border-b border-slate-700 flex items-center justify-between">
                 <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center border border-blue-500/30">
+                    <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center border border-blue-500/30">
                         <i class="fa-solid fa-graduation-cap"></i>
                     </div>
-                    <h3 class="font-bold text-base text-slate-100">บทเรียน: กฎของโอห์ม (Ohm's Law)</h3>
+                    <h3 class="font-bold text-sm sm:text-base text-slate-100">บทเรียน: กฎของโอห์ม (Ohm's Law)</h3>
                 </div>
-                <button onclick="closeLearningModal()" class="w-8 h-8 rounded-lg bg-slate-700 hover:bg-slate-600 text-slate-300 flex items-center justify-center transition cursor-pointer">
+                <button onclick="closeLearningModal()" class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-slate-700 hover:bg-slate-600 text-slate-300 flex items-center justify-center transition cursor-pointer">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
-            <div class="p-6 overflow-y-auto space-y-4 text-slate-300 text-sm leading-relaxed">
+            <div class="p-4 sm:p-6 overflow-y-auto space-y-4 text-slate-300 text-sm leading-relaxed custom-scrollbar">
                 <div class="bg-blue-950/40 border border-blue-500/30 p-4 rounded-xl">
                     <h4 class="font-semibold text-blue-400 mb-1 flex items-center gap-2"><i class="fa-solid fa-lightbulb"></i> ความหมายของกฎของโอห์ม</h4>
-                    <p class="text-xs text-slate-300">กฎของโอห์มเป็นกฎพื้นฐานในทางไฟฟ้า ซึ่งกล่าวถึงความสัมพันธ์ระหว่างความต่างศักย์ (Voltage - V) กระแสไฟฟ้า (Current - I) และความต้านทาน (Resistance - R) ในวงจรไฟฟ้ากระแสตรง</p>
+                    <p class="text-[11px] sm:text-xs text-slate-300">กฎของโอห์มเป็นกฎพื้นฐานในทางไฟฟ้า ซึ่งกล่าวถึงความสัมพันธ์ระหว่างความต่างศักย์ (Voltage - V) กระแสไฟฟ้า (Current - I) และความต้านทาน (Resistance - R) ในวงจรไฟฟ้ากระแสตรง</p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     <div class="bg-slate-800/80 border border-slate-700 p-3.5 rounded-xl text-center">
                         <span class="text-2xl font-bold font-mono text-blue-400">V</span>
                         <p class="font-semibold text-xs text-slate-200 mt-1">Voltage (แรงดันไฟฟ้า)</p>
-                        <p class="text-[11px] text-slate-400 mt-0.5">มีหน่วยเป็น โวลต์ (V)</p>
+                        <p class="text-[10px] sm:text-[11px] text-slate-400 mt-0.5">หน่วย: โวลต์ (V)</p>
                     </div>
                     <div class="bg-slate-800/80 border border-slate-700 p-3.5 rounded-xl text-center">
                         <span class="text-2xl font-bold font-mono text-emerald-400">I</span>
                         <p class="font-semibold text-xs text-slate-200 mt-1">Current (กระแสไฟฟ้า)</p>
-                        <p class="text-[11px] text-slate-400 mt-0.5">มีหน่วยเป็น แอมแปร์ (A)</p>
+                        <p class="text-[10px] sm:text-[11px] text-slate-400 mt-0.5">หน่วย: แอมแปร์ (A)</p>
                     </div>
                     <div class="bg-slate-800/80 border border-slate-700 p-3.5 rounded-xl text-center">
                         <span class="text-2xl font-bold font-mono text-amber-400">R</span>
                         <p class="font-semibold text-xs text-slate-200 mt-1">Resistance (ความต้านทาน)</p>
-                        <p class="text-[11px] text-slate-400 mt-0.5">มีหน่วยเป็น โอห์ม (Ω)</p>
+                        <p class="text-[10px] sm:text-[11px] text-slate-400 mt-0.5">หน่วย: โอห์ม (Ω)</p>
                     </div>
                 </div>
 
                 <div class="bg-slate-800/50 border border-slate-700/60 p-4 rounded-xl space-y-2">
                     <h4 class="font-semibold text-slate-200 text-xs uppercase tracking-wider text-indigo-400">สูตรคำนวณหลัก</h4>
-                    <div class="flex justify-around items-center bg-slate-900/80 p-3 rounded-lg font-mono text-base">
+                    <div class="flex flex-col sm:flex-row justify-around items-center gap-2 bg-slate-900/80 p-3 rounded-lg font-mono text-sm sm:text-base">
                         <span class="text-blue-400 font-bold">V = I × R</span>
                         <span class="text-emerald-400 font-bold">I = V ÷ R</span>
                         <span class="text-amber-400 font-bold">R = V ÷ I</span>
                     </div>
                 </div>
-
-                <div class="space-y-2 pt-2">
-                    <h4 class="font-semibold text-slate-200 text-xs uppercase tracking-wider text-indigo-400">สรุปความสัมพันธ์ 3 การทดลอง</h4>
-                    <ul class="space-y-1.5 text-xs text-slate-300 list-disc list-inside bg-slate-800/30 p-3 rounded-xl border border-slate-800">
-                        <li><strong>การทดลองที่ 1 (R คงที่):</strong> หากเพิ่มแรงดัน (V) กระแสไฟฟ้า (I) จะเพิ่มขึ้นตาม</li>
-                        <li><strong>การทดลองที่ 2 (V คงที่):</strong> หากเพิ่มความต้านทาน (R) กระแสไฟฟ้า (I) จะลดลง</li>
-                        <li><strong>การทดลองที่ 3 (I คงที่):</strong> หากเพิ่มความต้านทาน (R) แรงดันไฟฟ้า (V) ที่ต้องใช้จะเพิ่มขึ้น</li>
-                    </ul>
-                </div>
             </div>
-            <div class="bg-slate-800 px-6 py-3 border-t border-slate-700 flex justify-end">
+            <div class="bg-slate-800 px-4 sm:px-6 py-3 border-t border-slate-700 flex justify-end">
                 <button onclick="closeLearningModal()" class="bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold px-4 py-2 rounded-xl transition cursor-pointer">เข้าใจแล้ว</button>
             </div>
         </div>
     </div>
 
     <!-- Ohm's History Modal Popup -->
-    <div id="history-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div id="history-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[100] flex items-center justify-center p-4 hidden">
         <div class="bg-slate-900 border border-slate-700 w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
-            <div class="bg-slate-800 px-6 py-4 border-b border-slate-700 flex items-center justify-between">
+            <div class="bg-slate-800 px-4 sm:px-6 py-3 sm:py-4 border-b border-slate-700 flex items-center justify-between">
                 <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center border border-amber-500/30">
+                    <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center border border-amber-500/30">
                         <i class="fa-solid fa-user-tie"></i>
                     </div>
-                    <h3 class="font-bold text-base text-slate-100">ประวัติจอร์จ ซีมอน โอห์ม (Georg Simon Ohm)</h3>
+                    <h3 class="font-bold text-sm sm:text-base text-slate-100">ประวัติจอร์จ ซีมอน โอห์ม</h3>
                 </div>
-                <button onclick="closeHistoryModal()" class="w-8 h-8 rounded-lg bg-slate-700 hover:bg-slate-600 text-slate-300 flex items-center justify-center transition cursor-pointer">
+                <button onclick="closeHistoryModal()" class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-slate-700 hover:bg-slate-600 text-slate-300 flex items-center justify-center transition cursor-pointer">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
-            <div class="p-6 overflow-y-auto flex flex-col md:flex-row gap-6">
+            <div class="p-4 sm:p-6 overflow-y-auto flex flex-col md:flex-row gap-5 md:gap-6 custom-scrollbar">
                 <!-- Image Section -->
                 <div class="shrink-0 flex justify-center md:block">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Georg_Simon_Ohm3.jpg?utm_source=th.wikipedia.org&utm_campaign=index&utm_content=original" alt="Georg Simon Ohm" class="w-32 md:w-40 h-auto rounded-xl border-4 border-slate-700 shadow-xl object-cover bg-slate-800">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Georg_Simon_Ohm3.jpg?utm_source=th.wikipedia.org&utm_campaign=index&utm_content=original" alt="Georg Simon Ohm" class="w-28 sm:w-32 md:w-40 h-auto rounded-xl border-4 border-slate-700 shadow-xl object-cover bg-slate-800">
                 </div>
                 
                 <!-- History Content -->
-                <div class="space-y-4">
+                <div class="space-y-3 sm:space-y-4">
                     <div>
-                        <h4 class="font-bold text-amber-400 text-lg">จอร์จ ซีมอน โอห์ม</h4>
-                        <p class="text-xs text-slate-400 font-mono mt-0.5">16 มีนาคม พ.ศ. 2332 – 6 กรกฎาคม พ.ศ. 2397</p>
+                        <h4 class="font-bold text-amber-400 text-base sm:text-lg">จอร์จ ซีมอน โอห์ม (Georg Simon Ohm)</h4>
+                        <p class="text-[10px] sm:text-xs text-slate-400 font-mono mt-0.5">16 มีนาคม พ.ศ. 2332 – 6 กรกฎาคม พ.ศ. 2397</p>
                     </div>
                     
-                    <p class="text-[13px] text-slate-300 leading-relaxed">
+                    <p class="text-[11px] sm:text-[13px] text-slate-300 leading-relaxed">
                         นักฟิสิกส์และนักคณิตศาสตร์ชาวเยอรมัน ผู้ทำการค้นคว้าและทดลองเกี่ยวกับไฟฟ้ากระแสตรง เขาได้ค้นพบความสัมพันธ์พื้นฐานที่สำคัญยิ่งในวงจรไฟฟ้า 
                     </p>
                     
-                    <div class="bg-amber-950/30 border border-amber-500/20 p-3.5 rounded-xl">
-                        <h5 class="text-xs font-semibold text-amber-300 mb-1.5 flex items-center gap-1.5"><i class="fa-solid fa-lightbulb text-[11px]"></i> การค้นพบที่สำคัญ (ปี ค.ศ. 1827)</h5>
-                        <p class="text-[12px] text-slate-300 leading-relaxed">
-                            โอห์มได้ตีพิมพ์ผลงานที่อธิบายว่า <span class="text-white font-medium bg-amber-500/10 px-1.5 py-0.5 rounded inline-block my-1 border border-amber-500/20">"กระแสไฟฟ้าที่ไหลผ่านตัวนำ จะแปรผันตรงกับความต่างศักย์ และแปรผกผันกับความต้านทาน"</span> ซึ่งต่อมาได้รับการยอมรับในวงกว้างและถูกตั้งชื่อว่า <strong>"กฎของโอห์ม" (Ohm's Law)</strong>
+                    <div class="bg-amber-950/30 border border-amber-500/20 p-3 sm:p-3.5 rounded-xl">
+                        <h5 class="text-[11px] sm:text-xs font-semibold text-amber-300 mb-1.5 flex items-center gap-1.5"><i class="fa-solid fa-lightbulb text-[10px] sm:text-[11px]"></i> การค้นพบที่สำคัญ (ปี ค.ศ. 1827)</h5>
+                        <p class="text-[10px] sm:text-[12px] text-slate-300 leading-relaxed">
+                            โอห์มได้ตีพิมพ์ผลงานที่อธิบายว่า <span class="text-white font-medium bg-amber-500/10 px-1.5 py-0.5 rounded inline-block my-0.5 border border-amber-500/20">"กระแสไฟฟ้าที่ไหลผ่านตัวนำ จะแปรผันตรงกับความต่างศักย์ และแปรผกผันกับความต้านทาน"</span> ซึ่งต่อมาได้รับการยอมรับในวงกว้างและถูกตั้งชื่อว่า <strong>"กฎของโอห์ม" (Ohm's Law)</strong>
                         </p>
                     </div>
                     
-                    <p class="text-[13px] text-slate-300 leading-relaxed">
-                        เพื่อเป็นเกียรติแก่ผลงานอันทรงคุณค่าที่ช่วยวางรากฐานสำคัญให้แก่วิชาวิศวกรรมไฟฟ้า ชื่อของเขาจึงถูกนำมาตั้งเป็นชื่อหน่วยวัดความต้านทานไฟฟ้า <strong>"โอห์ม"</strong> โดยใช้สัญลักษณ์เป็นตัวอักษรกรีกโอเมกา <strong>(Ω)</strong>
+                    <p class="text-[11px] sm:text-[13px] text-slate-300 leading-relaxed">
+                        เพื่อเป็นเกียรติแก่ผลงานอันทรงคุณค่า ชื่อของเขาจึงถูกนำมาตั้งเป็นชื่อหน่วยวัดความต้านทานไฟฟ้า <strong>"โอห์ม"</strong> โดยใช้สัญลักษณ์ตัวอักษรกรีกโอเมกา <strong>(Ω)</strong>
                     </p>
                 </div>
             </div>
-            <div class="bg-slate-800 px-6 py-3 border-t border-slate-700 flex justify-end">
+            <div class="bg-slate-800 px-4 sm:px-6 py-3 border-t border-slate-700 flex justify-end">
                 <button onclick="closeHistoryModal()" class="bg-slate-700 hover:bg-slate-600 text-white text-xs font-semibold px-4 py-2 rounded-xl transition cursor-pointer border border-slate-600 shadow-lg">ปิดหน้าต่าง</button>
             </div>
         </div>
     </div>
 
     <script>
-        // Learning Modal Control
+        // --- Modal Control Functions ---
         function openLearningModal() {
             document.getElementById('learning-modal').classList.remove('hidden');
         }
@@ -374,7 +330,6 @@
             document.getElementById('learning-modal').classList.add('hidden');
         }
 
-        // History Modal Control
         function openHistoryModal() {
             document.getElementById('history-modal').classList.remove('hidden');
         }
@@ -382,80 +337,124 @@
             document.getElementById('history-modal').classList.add('hidden');
         }
 
-        // Reload PhET iframe
         function reloadIframe() {
             const iframe = document.getElementById('phet-iframe');
             iframe.src = iframe.src;
         }
 
-        // Dynamic update for Experiment 1 (R constant = 10 Ohm, V varies)
-        function updateExp1() {
-            const v = parseFloat(document.getElementById('slider-v1').value);
-            const r = 10;
-            const i = v / r;
-            document.getElementById('val-v1').innerText = `${v} V`;
-            
-            const badgeV = document.getElementById('badge-v1');
-            const badgeI = document.getElementById('badge-i1');
-            badgeV.innerText = `V: ${v}V`;
-            badgeI.innerText = `I: ${i.toFixed(2)}A`;
-            
-            badgeV.style.transform = `scale(${0.9 + (v / 40)})`;
-            badgeI.style.transform = `scale(${0.9 + (i / 2)})`;
-            
-            const status = document.getElementById('status-text-1');
-            if (v > 12) status.innerHTML = '<span class="text-emerald-300">V มาก ➔ กระแสไหลแรงมาก</span>';
-            else if (v < 8) status.innerHTML = '<span class="text-blue-300">V น้อย ➔ กระแสไหลช้า</span>';
-            else status.innerHTML = '<span>กระแสไหลปกติ</span>';
+        // --- Unified Ohm's Law Simulator Logic ---
+        
+        // Initial State
+        let v_val = 10.0;
+        let r_val = 10.0;
+        let i_val = 1.0;
+
+        // Constants and Limits
+        const MAX_V = 30.0;
+        const MIN_V = 1.0;
+        const MAX_R = 30.0;
+        const MIN_R = 1.0;
+
+        function clamp(val, min, max) {
+            return Math.min(Math.max(val, min), max);
         }
 
-        // Dynamic update for Experiment 2 (V constant = 10 V, R varies)
-        function updateExp2() {
-            const r = parseFloat(document.getElementById('slider-r2').value);
-            const v = 10;
-            const i = v / r;
-            document.getElementById('val-r2').innerText = `${r} Ω`;
+        // 1. When User Changes V (Assume R is constant) -> I changes
+        function changeV(delta) {
+            v_val = clamp(v_val + delta, MIN_V, MAX_V);
+            i_val = v_val / r_val;
             
-            const badgeR = document.getElementById('badge-r2');
-            const badgeI2 = document.getElementById('badge-i2');
-            badgeR.innerText = `R: ${r}Ω`;
-            badgeI2.innerText = `I: ${i.toFixed(2)}A`;
+            let status = "";
+            if (delta > 0) status = '<span class="text-emerald-300">V เพิ่ม ➔ I เพิ่มขึ้นตาม (R คงที่)</span>';
+            else status = '<span class="text-rose-300">V ลด ➔ I ลดลงตาม (R คงที่)</span>';
             
-            badgeR.style.transform = `scale(${0.9 + (r / 40)})`;
-            badgeI2.style.transform = `scale(${0.9 + (i / 2)})`;
-            
-            const status = document.getElementById('status-text-2');
-            if (r > 14) status.innerHTML = '<span class="text-rose-400">R มาก ➔ กระแสน้อย</span>';
-            else if (r < 6) status.innerHTML = '<span class="text-emerald-400">R น้อย ➔ กระแสมาก</span>';
-            else status.innerHTML = '<span>ต้านทานปานกลาง</span>';
+            updateUnifiedUI(status);
         }
 
-        // Dynamic update for Experiment 3 (I constant = 1.0 A, R varies -> V varies)
-        function updateExp3() {
-            const r = parseFloat(document.getElementById('slider-r3').value);
-            const i = 1.0;
-            const v = i * r;
-            document.getElementById('val-r3').innerText = `${r} Ω`;
+        // 2. When User Changes R (Assume V is constant) -> I changes inversely
+        function changeR(delta) {
+            r_val = clamp(r_val + delta, MIN_R, MAX_R);
+            i_val = v_val / r_val;
             
-            const badgeV = document.getElementById('badge-v3');
-            const badgeR = document.getElementById('badge-r3');
-            badgeV.innerText = `V: ${v.toFixed(1)}V`;
-            badgeR.innerText = `R: ${r}Ω`;
+            let status = "";
+            if (delta > 0) status = '<span class="text-rose-300">R เพิ่ม ➔ I ลดลง (V คงที่)</span>';
+            else status = '<span class="text-emerald-300">R ลด ➔ I เพิ่มขึ้น (V คงที่)</span>';
             
-            badgeV.style.transform = `scale(${0.9 + (v / 40)})`;
-            badgeR.style.transform = `scale(${0.9 + (r / 40)})`;
-
-            const status = document.getElementById('status-text-3');
-            if (r > 14) status.innerHTML = '<span class="text-blue-300">R สูง ➔ ต้องใช้ V สูง</span>';
-            else if (r < 6) status.innerHTML = '<span class="text-emerald-300">R ต่ำ ➔ ใช้ V น้อย</span>';
-            else status.innerHTML = '<span>แรงดันสมดุล</span>';
+            updateUnifiedUI(status);
         }
 
-        // Initial calls
+        // 3. When User Changes I (Assume R is constant) -> V must change to support it
+        function changeI(delta) {
+            // Prevent I from going exactly to 0 or negative
+            let new_i = Math.max(0.1, i_val + delta); 
+            
+            // Calculate what V needs to be
+            let new_v = new_i * r_val;
+            
+            // If the required V exceeds our limits, clamp V and recalculate I
+            if (new_v > MAX_V) {
+                new_v = MAX_V;
+                new_i = new_v / r_val;
+            } else if (new_v < MIN_V) {
+                new_v = MIN_V;
+                new_i = new_v / r_val;
+            }
+            
+            v_val = new_v;
+            i_val = new_i;
+
+            let status = "";
+            if (delta > 0) status = '<span class="text-blue-300">ต้องการ I เพิ่ม ➔ ต้องใช้ V เพิ่ม (R คงที่)</span>';
+            else status = '<span class="text-blue-300">ต้องการ I ลด ➔ ใช้ V ลดลง (R คงที่)</span>';
+            
+            updateUnifiedUI(status);
+        }
+
+        // Core UI Updater Function
+        function updateUnifiedUI(statusHTML = '<span class="text-slate-300">พร้อมทดลองปรับค่า</span>') {
+            // 1. Update Number Values
+            document.getElementById('val-v').innerText = v_val.toFixed(1) + ' V';
+            document.getElementById('val-r').innerText = r_val.toFixed(1) + ' Ω';
+            document.getElementById('val-i').innerText = i_val.toFixed(2) + ' A';
+            
+            // 2. Update Status Text
+            const statusEl = document.getElementById('relationship-status');
+            statusEl.innerHTML = statusHTML;
+            // Add a little pop effect to status text
+            statusEl.style.transform = 'scale(1.05)';
+            setTimeout(() => { statusEl.style.transform = 'scale(1)'; }, 200);
+
+            // 3. Update Bar Heights (Percentages)
+            document.getElementById('bar-v').style.height = (v_val / MAX_V * 100) + '%';
+            document.getElementById('bar-r').style.height = (r_val / MAX_R * 100) + '%';
+            
+            // For I, max realistic I is MAX_V/MIN_R = 30A, but normally much lower.
+            // Let's scale it so 5A is 100% for better visual sensitivity, cap at 100%.
+            let i_percent = (i_val / 5.0 * 100); 
+            if (i_percent > 100) i_percent = 100;
+            document.getElementById('bar-i').style.height = i_percent + '%';
+
+            // 4. Update Letter Font Size/Scale (The magic effect!)
+            // Base scale is 1. We map values to reasonable scale ranges.
+            
+            // V scale: 0.6 to 1.5
+            let scaleV = 0.6 + (v_val / MAX_V * 0.9);
+            
+            // R scale: 0.6 to 1.5
+            let scaleR = 0.6 + (r_val / MAX_R * 0.9);
+            
+            // I scale: 0.5 to 1.8 (more dramatic change)
+            let scaleI = 0.5 + (i_val / 3.0 * 1.3);
+            if (scaleI > 1.8) scaleI = 1.8; // Max cap
+
+            document.getElementById('text-v').style.transform = `scale(${scaleV})`;
+            document.getElementById('text-r').style.transform = `scale(${scaleR})`;
+            document.getElementById('text-i').style.transform = `scale(${scaleI})`;
+        }
+
+        // Initialize state on load
         window.onload = function() {
-            updateExp1();
-            updateExp2();
-            updateExp3();
+            updateUnifiedUI('<span class="text-blue-300">พร้อมทดลอง: กด <i class="fa-solid fa-plus text-xs"></i> หรือ <i class="fa-solid fa-minus text-xs"></i> ที่ตัวแปรด้านล่าง</span>');
         }
     </script>
 </body>
