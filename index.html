@@ -209,7 +209,7 @@
                     <div class="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-cyan-500/5 to-blue-500/5 opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
                     <p id="relationship-status" class="text-base md:text-lg font-medium text-slate-300 text-center transition-all duration-300 z-10 flex items-center gap-2">
                         <i class="fa-solid fa-hand-pointer text-cyan-400 animate-bounce"></i> 
-                        พร้อมทดลอง: กด <span class="bg-white/10 px-2 py-0.5 rounded text-white">+</span> หรือ <span class="bg-white/10 px-2 py-0.5 rounded text-white">-</span> ที่ตัวแปรด้านล่าง
+                        พร้อมทดลอง: กด <span class="bg-white/10 px-2 py-0.5 rounded text-white">+</span> / <span class="bg-white/10 px-2 py-0.5 rounded text-white">-</span> หรือ <span class="text-amber-400 font-semibold underline decoration-dashed">กดลากขึ้นลงที่หลอดสี</span>
                     </p>
                 </div>
 
@@ -217,11 +217,12 @@
                 <div class="flex items-end justify-center w-full h-[280px] md:h-[320px] relative gap-4 md:gap-8 lg:gap-12 pb-6 border-b border-white/10">
                     
                     <!-- V Column -->
-                    <div class="flex flex-col items-center justify-end h-full w-24 md:w-32 space-y-6">
+                    <div class="flex flex-col items-center justify-end h-full w-24 md:w-32 space-y-4">
+                        <span class="text-[10px] md:text-xs text-slate-500 uppercase tracking-widest bg-dark-900 px-2 py-1 rounded-md border border-white/5 flex items-center gap-1"><i class="fa-solid fa-arrows-up-down"></i> ลากปรับ</span>
                         <!-- Bar -->
-                        <div class="w-14 md:w-16 h-40 md:h-48 bg-dark-800 rounded-full relative overflow-hidden border border-white/5 mx-auto shadow-[inset_0_4px_15px_rgba(0,0,0,0.8)]">
-                            <div class="absolute inset-0 bg-blue-900/20 backdrop-blur-[2px] z-10"></div>
-                            <div id="bar-v" class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-blue-700 via-blue-500 to-cyan-400 smooth-scale neon-bar-v" style="height: 50%;">
+                        <div id="bar-container-v" class="w-14 md:w-16 h-40 md:h-48 bg-dark-800 rounded-full relative overflow-hidden border border-white/5 mx-auto shadow-[inset_0_4px_15px_rgba(0,0,0,0.8)] cursor-ns-resize touch-none transition-transform duration-200">
+                            <div class="absolute inset-0 bg-blue-900/20 backdrop-blur-[2px] z-10 pointer-events-none"></div>
+                            <div id="bar-v" class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-blue-700 via-blue-500 to-cyan-400 smooth-scale neon-bar-v pointer-events-none" style="height: 50%;">
                                 <!-- Liquid surface highlight -->
                                 <div class="absolute top-0 left-0 w-full h-1 bg-white/40"></div>
                             </div>
@@ -236,11 +237,12 @@
                     <span class="text-4xl md:text-5xl font-black text-slate-600 mb-10 shrink-0 font-mono">=</span>
                     
                     <!-- I Column -->
-                    <div class="flex flex-col items-center justify-end h-full w-24 md:w-32 space-y-6">
+                    <div class="flex flex-col items-center justify-end h-full w-24 md:w-32 space-y-4">
+                        <span class="text-[10px] md:text-xs text-slate-500 uppercase tracking-widest bg-dark-900 px-2 py-1 rounded-md border border-white/5 flex items-center gap-1"><i class="fa-solid fa-arrows-up-down"></i> ลากปรับ</span>
                         <!-- Bar -->
-                        <div class="w-14 md:w-16 h-40 md:h-48 bg-dark-800 rounded-full relative overflow-hidden border border-white/5 mx-auto shadow-[inset_0_4px_15px_rgba(0,0,0,0.8)]">
-                            <div class="absolute inset-0 bg-emerald-900/20 backdrop-blur-[2px] z-10"></div>
-                            <div id="bar-i" class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-emerald-700 via-emerald-500 to-teal-400 smooth-scale neon-bar-i" style="height: 20%;">
+                        <div id="bar-container-i" class="w-14 md:w-16 h-40 md:h-48 bg-dark-800 rounded-full relative overflow-hidden border border-white/5 mx-auto shadow-[inset_0_4px_15px_rgba(0,0,0,0.8)] cursor-ns-resize touch-none transition-transform duration-200">
+                            <div class="absolute inset-0 bg-emerald-900/20 backdrop-blur-[2px] z-10 pointer-events-none"></div>
+                            <div id="bar-i" class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-emerald-700 via-emerald-500 to-teal-400 smooth-scale neon-bar-i pointer-events-none" style="height: 20%;">
                                 <div class="absolute top-0 left-0 w-full h-1 bg-white/40"></div>
                             </div>
                         </div>
@@ -254,11 +256,12 @@
                     <span class="text-3xl md:text-4xl font-black text-slate-600 mb-10 shrink-0 mx-1 md:mx-2 font-mono">×</span>
 
                     <!-- R Column -->
-                    <div class="flex flex-col items-center justify-end h-full w-24 md:w-32 space-y-6">
+                    <div class="flex flex-col items-center justify-end h-full w-24 md:w-32 space-y-4">
+                        <span class="text-[10px] md:text-xs text-slate-500 uppercase tracking-widest bg-dark-900 px-2 py-1 rounded-md border border-white/5 flex items-center gap-1"><i class="fa-solid fa-arrows-up-down"></i> ลากปรับ</span>
                         <!-- Bar -->
-                        <div class="w-14 md:w-16 h-40 md:h-48 bg-dark-800 rounded-full relative overflow-hidden border border-white/5 mx-auto shadow-[inset_0_4px_15px_rgba(0,0,0,0.8)]">
-                            <div class="absolute inset-0 bg-amber-900/20 backdrop-blur-[2px] z-10"></div>
-                            <div id="bar-r" class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-orange-700 via-amber-500 to-yellow-400 smooth-scale neon-bar-r" style="height: 50%;">
+                        <div id="bar-container-r" class="w-14 md:w-16 h-40 md:h-48 bg-dark-800 rounded-full relative overflow-hidden border border-white/5 mx-auto shadow-[inset_0_4px_15px_rgba(0,0,0,0.8)] cursor-ns-resize touch-none transition-transform duration-200">
+                            <div class="absolute inset-0 bg-amber-900/20 backdrop-blur-[2px] z-10 pointer-events-none"></div>
+                            <div id="bar-r" class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-orange-700 via-amber-500 to-yellow-400 smooth-scale neon-bar-r pointer-events-none" style="height: 50%;">
                                 <div class="absolute top-0 left-0 w-full h-1 bg-white/40"></div>
                             </div>
                         </div>
@@ -470,6 +473,90 @@
         const MAX_R = 30.0;
         const MIN_R = 1.0;
 
+        function setupDraggableBars() {
+            const variables = ['v', 'i', 'r'];
+            const maxValues = { v: MAX_V, i: 5.0, r: MAX_R }; // 5.0 is the visual scale max for I
+
+            variables.forEach(v => {
+                const container = document.getElementById(`bar-container-${v}`);
+                const bar = document.getElementById(`bar-${v}`);
+                const text = document.getElementById(`text-${v}`);
+                if(!container) return;
+
+                let isDragging = false;
+
+                const updateValueFromEvent = (e) => {
+                    const rect = container.getBoundingClientRect();
+                    const clientY = e.clientY; 
+                    
+                    let yPos = rect.bottom - clientY;
+                    let percent = yPos / rect.height;
+                    percent = Math.min(Math.max(percent, 0.05), 1); // Clamp 5% to 100%
+
+                    let newValue = percent * maxValues[v];
+
+                    if (v === 'v') {
+                        newValue = clamp(newValue, MIN_V, MAX_V);
+                        v_val = newValue;
+                        i_val = v_val / r_val;
+                        updateUnifiedUI('<span class="text-blue-400 font-semibold drop-shadow-[0_0_5px_rgba(96,165,250,0.5)]"><i class="fa-solid fa-arrows-up-down"></i> กำลังปรับ V ➔ I เลื่อนตาม (R คงที่)</span>');
+                    } else if (v === 'r') {
+                        newValue = clamp(newValue, MIN_R, MAX_R);
+                        r_val = newValue;
+                        i_val = v_val / r_val;
+                        updateUnifiedUI('<span class="text-amber-400 font-semibold drop-shadow-[0_0_5px_rgba(251,191,36,0.5)]"><i class="fa-solid fa-arrows-up-down"></i> กำลังปรับ R ➔ I สวนทาง (V คงที่)</span>');
+                    } else if (v === 'i') {
+                        newValue = Math.max(newValue, 0.1);
+                        i_val = newValue;
+                        let new_v = i_val * r_val;
+                        if(new_v > MAX_V) {
+                            new_v = MAX_V;
+                            i_val = new_v / r_val;
+                        } else if(new_v < MIN_V) {
+                            new_v = MIN_V;
+                            i_val = new_v / r_val;
+                        }
+                        v_val = new_v;
+                        updateUnifiedUI('<span class="text-emerald-400 font-semibold drop-shadow-[0_0_5px_rgba(52,211,153,0.5)]"><i class="fa-solid fa-arrows-up-down"></i> กำลังปรับ I ➔ บังคับ V ให้เปลี่ยน (R คงที่)</span>');
+                    }
+                };
+
+                container.addEventListener('pointerdown', (e) => {
+                    isDragging = true;
+                    container.setPointerCapture(e.pointerId);
+                    
+                    // Remove smooth transition during drag for instant feel
+                    bar.classList.remove('smooth-scale');
+                    text.classList.remove('smooth-scale');
+                    
+                    container.style.transform = 'scale(1.05)';
+                    container.style.borderColor = 'rgba(255,255,255,0.4)';
+                    updateValueFromEvent(e);
+                });
+
+                container.addEventListener('pointermove', (e) => {
+                    if (!isDragging) return;
+                    updateValueFromEvent(e);
+                });
+
+                const endDrag = (e) => {
+                    if (!isDragging) return;
+                    isDragging = false;
+                    container.releasePointerCapture(e.pointerId);
+                    
+                    // Restore smooth transition
+                    bar.classList.add('smooth-scale');
+                    text.classList.add('smooth-scale');
+                    
+                    container.style.transform = 'scale(1)';
+                    container.style.borderColor = 'rgba(255,255,255,0.05)';
+                };
+
+                container.addEventListener('pointerup', endDrag);
+                container.addEventListener('pointercancel', endDrag);
+            });
+        }
+
         function clamp(val, min, max) {
             return Math.min(Math.max(val, min), max);
         }
@@ -570,7 +657,8 @@
 
         // Initialize UI on load
         window.onload = function() {
-            updateUnifiedUI('<span class="text-cyan-400 font-medium tracking-wide drop-shadow-[0_0_5px_rgba(34,211,238,0.5)]"><i class="fa-solid fa-wand-magic-sparkles mr-2"></i> ระบบพร้อมทำงาน ลองปรับค่าด้านล่าง</span>');
+            updateUnifiedUI('<span class="text-cyan-400 font-medium tracking-wide drop-shadow-[0_0_5px_rgba(34,211,238,0.5)]"><i class="fa-solid fa-wand-magic-sparkles mr-2"></i> ระบบพร้อมทำงาน ลองลากหลอดสีด้านล่าง</span>');
+            setupDraggableBars();
         }
     </script>
 </body>
