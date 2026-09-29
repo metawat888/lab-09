@@ -1,308 +1,435 @@
 <!DOCTYPE html>
-<html lang="th" class="h-full">
+<html lang="th" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard ทดลอง กฎของโอห์ม</title>
+    <title>Dashboard ทดลอง กฎของโอห์ม - Professional Edition</title>
     <!-- Tailwind CSS -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Inter & Sarabun -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Sarabun', 'Inter', 'sans-serif'],
+                        mono: ['Inter', 'monospace'],
+                    },
+                    colors: {
+                        dark: {
+                            900: '#0a0a0f',
+                            800: '#12121a',
+                            700: '#1a1a24',
+                            600: '#272736',
+                        }
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                        'glow': 'pulse-glow 3s infinite ease-in-out',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        'pulse-glow': {
+                            '0%, 100%': { opacity: 0.6, filter: 'brightness(1)' },
+                            '50%': { opacity: 1, filter: 'brightness(1.2)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
-        body {
-            font-family: 'Sarabun', 'Inter', sans-serif;
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
         }
-        @keyframes pulse-glow {
-            0%, 100% { opacity: 0.4; transform: scale(1); }
-            50% { opacity: 0.8; transform: scale(1.03); }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0f; 
         }
-        .animate-glow {
-            animation: pulse-glow 3s infinite ease-in-out;
+        ::-webkit-scrollbar-thumb {
+            background: #272736; 
+            border-radius: 10px;
         }
-        /* Transition for smooth scaling */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3f3f5a; 
+        }
+
+        /* Smooth Scaling & Glow */
         .smooth-scale {
-            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), height 0.3s ease;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                        height 0.4s ease-out, 
+                        box-shadow 0.4s ease-out, 
+                        text-shadow 0.4s ease-out;
+        }
+        
+        .neon-text-v { text-shadow: 0 0 15px rgba(59, 130, 246, 0.8); }
+        .neon-text-i { text-shadow: 0 0 15px rgba(16, 185, 129, 0.8); }
+        .neon-text-r { text-shadow: 0 0 15px rgba(245, 158, 11, 0.8); }
+
+        .neon-bar-v { box-shadow: 0 0 20px rgba(59, 130, 246, 0.6); }
+        .neon-bar-i { box-shadow: 0 0 20px rgba(16, 185, 129, 0.6); }
+        .neon-bar-r { box-shadow: 0 0 20px rgba(245, 158, 11, 0.6); }
+
+        /* Glass Panel */
+        .glass-panel {
+            background: rgba(18, 18, 26, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Ambient Background */
+        body {
+            background-color: #0a0a0f;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(17, 24, 39, 1) 0, transparent 50%), 
+                radial-gradient(at 100% 100%, rgba(17, 24, 39, 1) 0, transparent 50%);
+            background-attachment: fixed;
         }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-full flex flex-col selection:bg-blue-500 selection:text-white overflow-y-auto">
+<body class="text-slate-200 min-h-screen flex flex-col selection:bg-blue-500/30 selection:text-blue-200 relative overflow-x-hidden">
 
-    <!-- Header -->
-    <header class="bg-slate-900/90 backdrop-blur-md border-b border-slate-800 px-3 lg:px-6 py-3.5 flex items-center justify-between shrink-0 sticky top-0 z-50 shadow-md">
-        <div class="flex items-center space-x-2 sm:space-x-3">
-            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-blue-500/30 shrink-0">
-                <i class="fa-solid fa-bolt text-white text-base sm:text-lg"></i>
+    <!-- Ambient Glowing Orbs -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-blue-600/10 rounded-full mix-blend-screen filter blur-[100px] animate-blob"></div>
+        <div class="absolute top-[20%] right-[-10%] w-96 h-96 bg-emerald-600/10 rounded-full mix-blend-screen filter blur-[100px] animate-blob animation-delay-2000"></div>
+        <div class="absolute bottom-[-20%] left-[20%] w-[30rem] h-[30rem] bg-amber-600/10 rounded-full mix-blend-screen filter blur-[120px] animate-blob animation-delay-4000"></div>
+    </div>
+
+    <header class="glass-panel px-4 lg:px-8 py-4 flex flex-wrap gap-4 items-center justify-between sticky top-0 z-50 shadow-2xl shadow-black/50 border-b border-white/5">
+        <div class="flex items-center space-x-3 md:space-x-4">
+            <div class="w-10 h-10 md:w-12 md:h-12 rounded-2xl bg-gradient-to-tr from-blue-600 to-cyan-400 flex items-center justify-center shadow-[0_0_20px_rgba(59,130,246,0.4)] shrink-0">
+                <i class="fa-solid fa-bolt text-white text-lg md:text-xl"></i>
             </div>
             <div>
-                <h1 class="font-bold text-sm sm:text-base text-slate-100 flex flex-wrap items-center gap-1.5 sm:gap-2">
-                    <span>Dashboard กฎของโอห์ม</span>
-                    <span class="text-[10px] sm:text-xs bg-blue-500/20 text-blue-400 border border-blue-500/30 px-2 py-0.5 rounded-full font-normal hidden sm:inline-block">Interactive Physics</span>
+                <h1 class="font-bold text-base md:text-lg text-white flex items-center gap-2 tracking-wide">
+                    Ohm's Law Pro
+                    <span class="text-[10px] md:text-xs bg-blue-500/10 text-cyan-400 border border-cyan-500/20 px-2 py-0.5 rounded-full font-medium hidden sm:inline-flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+                        Interactive
+                    </span>
                 </h1>
-                <p class="hidden md:block text-xs text-slate-400">โปรแกรมจำลอง PhET พร้อมคู่มือแบบเรียลไทม์</p>
+                <p class="hidden md:block text-xs text-slate-400 font-light mt-0.5">ระบบจำลองฟิสิกส์อัจฉริยะแบบเรียลไทม์</p>
             </div>
         </div>
         
-        <div class="flex items-center space-x-2 sm:space-x-3">
-            <!-- History Popup Button -->
-            <button onclick="openHistoryModal()" class="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white text-xs sm:text-sm font-semibold px-2.5 sm:px-3.5 py-2 rounded-xl shadow-lg flex items-center gap-1.5 sm:gap-2 transition cursor-pointer border border-amber-400/30" aria-label="ประวัติโอห์ม">
-                <i class="fa-solid fa-user-clock"></i>
+        <div class="flex flex-wrap items-center gap-2 md:gap-4">
+            <!-- History Button -->
+            <button onclick="openHistoryModal()" class="group relative px-4 py-2 bg-dark-800 hover:bg-dark-700 text-amber-400 text-xs md:text-sm font-semibold rounded-xl transition-all duration-300 border border-amber-500/20 hover:border-amber-500/50 hover:shadow-[0_0_15px_rgba(245,158,11,0.2)] flex items-center gap-2">
+                <i class="fa-solid fa-compass group-hover:rotate-45 transition-transform duration-300"></i>
                 <span class="hidden sm:inline">ประวัติโอห์ม</span>
             </button>
 
-            <!-- Learning Popup Button -->
-            <button onclick="openLearningModal()" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs sm:text-sm font-semibold px-2.5 sm:px-3.5 py-2 rounded-xl shadow-lg flex items-center gap-1.5 sm:gap-2 transition cursor-pointer border border-blue-400/30" aria-label="เข้าเรียนรู้">
-                <i class="fa-solid fa-book-open-reader"></i>
+            <!-- Learning Button -->
+            <button onclick="openLearningModal()" class="group relative px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs md:text-sm font-semibold rounded-xl transition-all duration-300 shadow-lg shadow-blue-900/50 flex items-center gap-2">
+                <i class="fa-solid fa-book-sparkles group-hover:scale-110 transition-transform"></i>
                 <span class="hidden sm:inline">เข้าเรียนรู้</span>
             </button>
 
             <!-- Developer Profile Badge -->
-            <div class="flex items-center space-x-2 sm:space-x-3 bg-slate-800/80 border border-slate-700/60 px-2.5 sm:px-3.5 py-1.5 rounded-full shadow-md ml-1 sm:ml-2">
-                <img src="https://github.com/metawat888/Picture/raw/69f9d3a46e017adc43abb8db3503ea8106ecae61/97488303_2887790847941184_353651305119481856_n.jpg" alt="นายเมธาวัฒน์ พงสะพัง" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full object-cover border border-blue-500" onerror="this.src='https://placehold.co/100x100/2563eb/ffffff?text=M'">
+            <a href="https://github.com/metawat888" target="_blank" class="flex items-center gap-3 bg-dark-800/80 hover:bg-dark-700 border border-white/10 hover:border-blue-500/50 px-2 md:px-4 py-1.5 rounded-full shadow-md ml-1 transition-colors cursor-pointer group">
+                <img src="https://github.com/metawat888/Picture/raw/69f9d3a46e017adc43abb8db3503ea8106ecae61/97488303_2887790847941184_353651305119481856_n.jpg" alt="Developer" class="w-8 h-8 md:w-9 md:h-9 rounded-full object-cover border-2 border-transparent group-hover:border-cyan-400 transition-colors" onerror="this.src='https://placehold.co/100x100/1e40af/ffffff?text=Dev'">
                 <div class="text-left pr-1 hidden lg:block">
-                    <p class="text-[10px] text-slate-400 leading-tight">พัฒนาโดย</p>
-                    <p class="text-xs font-semibold text-slate-200 leading-tight">นายเมธาวัฒน์ พงสะพัง</p>
+                    <p class="text-[9px] text-slate-500 uppercase tracking-widest font-bold">Developer</p>
+                    <p class="text-xs font-semibold text-slate-200">นายเมธาวัฒน์ พงสะพัง</p>
                 </div>
-            </div>
+            </a>
         </div>
     </header>
 
-    <!-- Main Layout: PhET on top for mobile, or right 40% on desktop; Control panel takes 60% on desktop -->
-    <main class="flex-1 flex flex-col lg:flex-row w-full">
+    <main class="flex-1 w-full max-w-[1920px] mx-auto p-4 md:p-6 lg:p-8 flex flex-col lg:flex-row gap-6 relative z-10">
         
-        <!-- Interactive Area: PhET Simulation (40% on desktop, compact height) -->
-        <section class="w-full lg:w-[40%] flex flex-col bg-slate-900 relative order-1 lg:order-2 h-[450px] lg:h-auto border-b lg:border-b-0 lg:border-l border-slate-800 shrink-0">
-            <div class="bg-slate-800/80 px-4 py-2.5 border-b border-slate-700/50 flex items-center justify-between text-xs text-slate-400 shrink-0">
-                <div class="flex items-center gap-2 overflow-hidden">
-                    <span class="w-3 h-3 rounded-full bg-red-500 inline-block shrink-0"></span>
-                    <span class="w-3 h-3 rounded-full bg-yellow-500 inline-block shrink-0"></span>
-                    <span class="w-3 h-3 rounded-full bg-green-500 inline-block shrink-0"></span>
-                    <span class="ml-2 font-mono text-slate-300 text-xs truncate">https://phet.colorado.edu/sims/html/ohms-law/latest/ohms-law_th.html</span>
+        <!-- Left Side: PhET Simulation (40% on desktop) -->
+        <section class="w-full lg:w-[40%] flex flex-col shrink-0 order-2 lg:order-1">
+            <div class="glass-panel rounded-3xl overflow-hidden flex flex-col h-[500px] lg:h-[750px] shadow-2xl relative group">
+                
+                <!-- Terminal Header -->
+                <div class="bg-dark-900/80 backdrop-blur-md px-4 py-3 border-b border-white/10 flex items-center justify-between text-xs text-slate-400 z-10">
+                    <div class="flex items-center gap-2.5">
+                        <div class="flex gap-1.5">
+                            <span class="w-3 h-3 rounded-full bg-rose-500/80 shadow-[0_0_5px_rgba(243,24,71,0.5)]"></span>
+                            <span class="w-3 h-3 rounded-full bg-amber-500/80 shadow-[0_0_5px_rgba(245,158,11,0.5)]"></span>
+                            <span class="w-3 h-3 rounded-full bg-emerald-500/80 shadow-[0_0_5px_rgba(16,185,129,0.5)]"></span>
+                        </div>
+                        <span class="ml-2 font-mono text-[10px] md:text-xs text-slate-500 truncate max-w-[150px] md:max-w-xs">PhET: ohms-law_th</span>
+                    </div>
+                    <button onclick="reloadIframe()" class="hover:text-cyan-400 transition-colors flex items-center gap-1.5 cursor-pointer bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded-lg" aria-label="รีโหลดการจำลอง">
+                        <i class="fa-solid fa-rotate-right"></i> <span>รีเซ็ต</span>
+                    </button>
                 </div>
-                <div class="flex items-center gap-3 shrink-0 pl-2">
-                    <button onclick="reloadIframe()" class="hover:text-white transition flex items-center gap-1.5 cursor-pointer text-xs"><i class="fa-solid fa-rotate-right"></i> <span>รีโหลด</span></button>
+
+                <!-- Iframe Container -->
+                <div class="w-full flex-1 bg-black/90 relative">
+                    <!-- Overlay shadow to blend iframe edges -->
+                    <div class="absolute inset-0 shadow-[inset_0_0_30px_rgba(0,0,0,1)] pointer-events-none z-10"></div>
+                    <iframe id="phet-iframe" src="https://phet.colorado.edu/sims/html/ohms-law/latest/ohms-law_th.html" class="w-full h-full border-0" allowfullscreen></iframe>
                 </div>
-            </div>
-            <div class="w-full flex-1 bg-black relative flex items-center justify-center">
-                <iframe id="phet-iframe" src="https://phet.colorado.edu/sims/html/ohms-law/latest/ohms-law_th.html" class="w-full h-full border-0" allowfullscreen></iframe>
             </div>
         </section>
 
-        <!-- Sidebar: Unified Experiment Guide & Controls (60% on desktop) -->
-        <aside class="w-full lg:w-[60%] bg-slate-950 flex flex-col p-4 sm:p-8 space-y-6 order-2 lg:order-1 shrink-0">
+        <!-- Right Side: Unified Control Panel (60% on desktop) -->
+        <section class="w-full lg:w-[60%] flex flex-col gap-6 order-1 lg:order-2">
             
-            <div class="flex items-center gap-4 pb-4 border-b border-slate-800/80">
-                <div class="w-12 h-12 rounded-2xl bg-blue-500/20 text-blue-400 flex items-center justify-center border border-blue-500/30 shrink-0 shadow-lg">
-                    <i class="fa-solid fa-sliders text-xl"></i>
-                </div>
+            <!-- Header for Panel -->
+            <div class="glass-panel p-5 md:p-6 rounded-3xl border-l-4 border-l-blue-500 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div>
-                    <h3 class="font-bold text-lg sm:text-xl text-slate-100 leading-tight">แผงควบคุมความสัมพันธ์</h3>
-                    <p class="text-sm text-slate-400 mt-0.5">ปรับเพิ่ม-ลดค่า V, I, R เพื่อสังเกตความสัมพันธ์ตามกฎของโอห์ม</p>
+                    <h2 class="text-xl md:text-2xl font-bold text-white flex items-center gap-3">
+                        <i class="fa-solid fa-sliders text-blue-400"></i> แผงควบคุมความสัมพันธ์
+                    </h2>
+                    <p class="text-sm text-slate-400 mt-1">ทดลองปรับค่า V, I, R เพื่อสังเกตการเปลี่ยนแปลงตามกฎของโอห์ม</p>
+                </div>
+                
+                <div class="bg-dark-900 px-4 py-2 rounded-xl border border-white/5 flex items-center gap-3 shadow-inner">
+                    <span class="relative flex h-3 w-3">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                    </span>
+                    <span class="text-xs text-emerald-400 font-mono tracking-wider font-semibold">SYSTEM ACTIVE</span>
                 </div>
             </div>
 
-            <!-- Unified Interactive Simulator Tool -->
-            <div class="bg-slate-900/90 border border-slate-800 p-6 sm:p-8 rounded-3xl flex flex-col items-center justify-center gap-8 shadow-2xl">
+            <div class="glass-panel p-6 md:p-8 rounded-3xl flex flex-col items-center justify-center gap-10 shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
                 
-                <!-- Status & Feedback Screen -->
-                <div class="w-full bg-slate-950 px-6 py-4 rounded-2xl border border-slate-800 flex items-center justify-center min-h-[70px] shadow-inner">
-                    <p id="relationship-status" class="text-base sm:text-lg font-medium text-blue-300 text-center transition-colors duration-300">
-                        พร้อมทดลอง: กด + หรือ - ที่ตัวแปรด้านล่าง
+                <!-- Status Monitor -->
+                <div class="w-full bg-dark-900/80 backdrop-blur-sm px-6 py-4 rounded-2xl border border-white/5 flex items-center justify-center min-h-[80px] shadow-[inset_0_2px_20px_rgba(0,0,0,0.8)] relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-cyan-500/5 to-blue-500/5 opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <p id="relationship-status" class="text-base md:text-lg font-medium text-slate-300 text-center transition-all duration-300 z-10 flex items-center gap-2">
+                        <i class="fa-solid fa-hand-pointer text-cyan-400 animate-bounce"></i> 
+                        พร้อมทดลอง: กด <span class="bg-white/10 px-2 py-0.5 rounded text-white">+</span> หรือ <span class="bg-white/10 px-2 py-0.5 rounded text-white">-</span> ที่ตัวแปรด้านล่าง
                     </p>
                 </div>
 
-                <!-- Equation & Bars Visualizer (No center dividing lines, nicely spaced) -->
-                <div class="flex items-end justify-around w-full h-[240px] sm:h-[260px] px-2 sm:px-6 relative border-b border-slate-800/80 pb-6 gap-4">
+                <!-- Equation & Bars Visualizer -->
+                <div class="flex items-end justify-center w-full h-[280px] md:h-[320px] relative gap-4 md:gap-8 lg:gap-12 pb-6 border-b border-white/10">
                     
                     <!-- V Column -->
-                    <div class="flex flex-col items-center justify-end h-full w-[30%] space-y-4">
+                    <div class="flex flex-col items-center justify-end h-full w-24 md:w-32 space-y-6">
                         <!-- Bar -->
-                        <div class="w-14 sm:w-18 h-32 sm:h-36 bg-slate-950 rounded-xl relative overflow-hidden border border-slate-800 mx-auto shadow-inner shadow-black">
-                            <div id="bar-v" class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-blue-700 to-blue-400 smooth-scale" style="height: 50%;"></div>
+                        <div class="w-14 md:w-16 h-40 md:h-48 bg-dark-800 rounded-full relative overflow-hidden border border-white/5 mx-auto shadow-[inset_0_4px_15px_rgba(0,0,0,0.8)]">
+                            <div class="absolute inset-0 bg-blue-900/20 backdrop-blur-[2px] z-10"></div>
+                            <div id="bar-v" class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-blue-700 via-blue-500 to-cyan-400 smooth-scale neon-bar-v" style="height: 50%;">
+                                <!-- Liquid surface highlight -->
+                                <div class="absolute top-0 left-0 w-full h-1 bg-white/40"></div>
+                            </div>
                         </div>
                         <!-- Letter -->
-                        <div class="h-14 flex items-center justify-center relative w-full">
-                            <span id="text-v" class="font-bold text-blue-400 smooth-scale absolute" style="font-size: 3rem;">V</span>
+                        <div class="h-16 flex items-center justify-center relative w-full">
+                            <span id="text-v" class="font-bold text-blue-400 smooth-scale absolute neon-text-v transition-colors" style="font-size: 3.5rem;">V</span>
                         </div>
                     </div>
                     
-                    <span class="text-4xl sm:text-6xl font-bold text-slate-600 mb-8 shrink-0">=</span>
+                    <!-- Equal Sign -->
+                    <span class="text-4xl md:text-5xl font-black text-slate-600 mb-10 shrink-0 font-mono">=</span>
                     
                     <!-- I Column -->
-                    <div class="flex flex-col items-center justify-end h-full w-[30%] space-y-4">
+                    <div class="flex flex-col items-center justify-end h-full w-24 md:w-32 space-y-6">
                         <!-- Bar -->
-                        <div class="w-14 sm:w-18 h-32 sm:h-36 bg-slate-950 rounded-xl relative overflow-hidden border border-slate-800 mx-auto shadow-inner shadow-black">
-                            <div id="bar-i" class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-emerald-700 to-emerald-400 smooth-scale" style="height: 20%;"></div>
+                        <div class="w-14 md:w-16 h-40 md:h-48 bg-dark-800 rounded-full relative overflow-hidden border border-white/5 mx-auto shadow-[inset_0_4px_15px_rgba(0,0,0,0.8)]">
+                            <div class="absolute inset-0 bg-emerald-900/20 backdrop-blur-[2px] z-10"></div>
+                            <div id="bar-i" class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-emerald-700 via-emerald-500 to-teal-400 smooth-scale neon-bar-i" style="height: 20%;">
+                                <div class="absolute top-0 left-0 w-full h-1 bg-white/40"></div>
+                            </div>
                         </div>
                         <!-- Letter -->
-                        <div class="h-14 flex items-center justify-center relative w-full">
-                            <span id="text-i" class="font-bold text-emerald-400 smooth-scale absolute" style="font-size: 3rem;">I</span>
+                        <div class="h-16 flex items-center justify-center relative w-full">
+                            <span id="text-i" class="font-bold text-emerald-400 smooth-scale absolute neon-text-i transition-colors" style="font-size: 3.5rem;">I</span>
                         </div>
                     </div>
 
-                    <span class="text-3xl sm:text-5xl font-bold text-slate-600 mb-8 shrink-0">×</span>
+                    <!-- Multiply Sign -->
+                    <span class="text-3xl md:text-4xl font-black text-slate-600 mb-10 shrink-0 mx-1 md:mx-2 font-mono">×</span>
 
                     <!-- R Column -->
-                    <div class="flex flex-col items-center justify-end h-full w-[30%] space-y-4">
+                    <div class="flex flex-col items-center justify-end h-full w-24 md:w-32 space-y-6">
                         <!-- Bar -->
-                        <div class="w-14 sm:w-18 h-32 sm:h-36 bg-slate-950 rounded-xl relative overflow-hidden border border-slate-800 mx-auto shadow-inner shadow-black">
-                            <div id="bar-r" class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-amber-700 to-amber-400 smooth-scale" style="height: 50%;"></div>
+                        <div class="w-14 md:w-16 h-40 md:h-48 bg-dark-800 rounded-full relative overflow-hidden border border-white/5 mx-auto shadow-[inset_0_4px_15px_rgba(0,0,0,0.8)]">
+                            <div class="absolute inset-0 bg-amber-900/20 backdrop-blur-[2px] z-10"></div>
+                            <div id="bar-r" class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-orange-700 via-amber-500 to-yellow-400 smooth-scale neon-bar-r" style="height: 50%;">
+                                <div class="absolute top-0 left-0 w-full h-1 bg-white/40"></div>
+                            </div>
                         </div>
                         <!-- Letter -->
-                        <div class="h-14 flex items-center justify-center relative w-full">
-                            <span id="text-r" class="font-bold text-amber-400 smooth-scale absolute" style="font-size: 3rem;">R</span>
+                        <div class="h-16 flex items-center justify-center relative w-full">
+                            <span id="text-r" class="font-bold text-amber-400 smooth-scale absolute neon-text-r transition-colors" style="font-size: 3.5rem;">R</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Interactive Controls (+ / -) with generous spacing -->
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 w-full">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
                     
                     <!-- V Controls -->
-                    <div class="flex flex-col items-center bg-slate-950 p-5 rounded-2xl border border-blue-500/20 shadow-lg">
-                        <span class="text-sm text-slate-300 mb-1 font-semibold">แรงดันไฟฟ้า (V)</span>
-                        <span id="val-v" class="font-mono text-xl font-bold text-blue-400 mb-4">10.0 V</span>
+                    <div class="flex flex-col items-center bg-dark-800/60 p-5 rounded-2xl border border-blue-500/20 shadow-lg hover:border-blue-500/40 transition-colors group">
+                        <span class="text-sm text-slate-400 mb-2 font-medium tracking-wide">แรงดันไฟฟ้า (V)</span>
+                        <div class="bg-dark-900 px-4 py-2 rounded-lg border border-white/5 mb-4 shadow-inner">
+                            <span id="val-v" class="font-mono text-xl font-bold text-blue-400 drop-shadow-[0_0_8px_rgba(59,130,246,0.6)]">10.0 V</span>
+                        </div>
                         <div class="flex gap-3 w-full h-12">
-                            <button onclick="changeV(-1)" class="flex-1 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-xl text-white flex items-center justify-center transition cursor-pointer active:scale-95 text-lg font-bold"><i class="fa-solid fa-minus"></i></button>
-                            <button onclick="changeV(1)" class="flex-1 bg-blue-600 hover:bg-blue-500 border border-blue-500/50 rounded-xl text-white flex items-center justify-center transition cursor-pointer active:scale-95 text-lg font-bold"><i class="fa-solid fa-plus"></i></button>
+                            <button onclick="changeV(-1)" class="flex-1 bg-dark-700 hover:bg-dark-600 border border-white/5 rounded-xl text-white flex items-center justify-center transition-all cursor-pointer active:scale-95 text-lg shadow-md hover:shadow-blue-900/30">
+                                <i class="fa-solid fa-minus"></i>
+                            </button>
+                            <button onclick="changeV(1)" class="flex-1 bg-gradient-to-b from-blue-500 to-blue-700 hover:from-blue-400 hover:to-blue-600 rounded-xl text-white flex items-center justify-center transition-all cursor-pointer active:scale-95 text-lg shadow-[0_0_15px_rgba(59,130,246,0.4)] border border-blue-400/50">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
                         </div>
                     </div>
                     
                     <!-- I Controls -->
-                    <div class="flex flex-col items-center bg-slate-950 p-5 rounded-2xl border border-emerald-500/20 shadow-lg">
-                        <span class="text-sm text-slate-300 mb-1 font-semibold">กระแสไฟฟ้า (I)</span>
-                        <span id="val-i" class="font-mono text-xl font-bold text-emerald-400 mb-4">1.00 A</span>
+                    <div class="flex flex-col items-center bg-dark-800/60 p-5 rounded-2xl border border-emerald-500/20 shadow-lg hover:border-emerald-500/40 transition-colors group">
+                        <span class="text-sm text-slate-400 mb-2 font-medium tracking-wide">กระแสไฟฟ้า (I)</span>
+                        <div class="bg-dark-900 px-4 py-2 rounded-lg border border-white/5 mb-4 shadow-inner">
+                            <span id="val-i" class="font-mono text-xl font-bold text-emerald-400 drop-shadow-[0_0_8px_rgba(16,185,129,0.6)]">1.00 A</span>
+                        </div>
                         <div class="flex gap-3 w-full h-12">
-                            <button onclick="changeI(-0.2)" class="flex-1 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-xl text-white flex items-center justify-center transition cursor-pointer active:scale-95 text-lg font-bold"><i class="fa-solid fa-minus"></i></button>
-                            <button onclick="changeI(0.2)" class="flex-1 bg-emerald-600 hover:bg-emerald-500 border border-emerald-500/50 rounded-xl text-white flex items-center justify-center transition cursor-pointer active:scale-95 text-lg font-bold"><i class="fa-solid fa-plus"></i></button>
+                            <button onclick="changeI(-0.2)" class="flex-1 bg-dark-700 hover:bg-dark-600 border border-white/5 rounded-xl text-white flex items-center justify-center transition-all cursor-pointer active:scale-95 text-lg shadow-md hover:shadow-emerald-900/30">
+                                <i class="fa-solid fa-minus"></i>
+                            </button>
+                            <button onclick="changeI(0.2)" class="flex-1 bg-gradient-to-b from-emerald-500 to-emerald-700 hover:from-emerald-400 hover:to-emerald-600 rounded-xl text-white flex items-center justify-center transition-all cursor-pointer active:scale-95 text-lg shadow-[0_0_15px_rgba(16,185,129,0.4)] border border-emerald-400/50">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
                         </div>
                     </div>
 
                     <!-- R Controls -->
-                    <div class="flex flex-col items-center bg-slate-950 p-5 rounded-2xl border border-amber-500/20 shadow-lg">
-                        <span class="text-sm text-slate-300 mb-1 font-semibold">ความต้านทาน (R)</span>
-                        <span id="val-r" class="font-mono text-xl font-bold text-amber-400 mb-4">10.0 Ω</span>
+                    <div class="flex flex-col items-center bg-dark-800/60 p-5 rounded-2xl border border-amber-500/20 shadow-lg hover:border-amber-500/40 transition-colors group">
+                        <span class="text-sm text-slate-400 mb-2 font-medium tracking-wide">ความต้านทาน (R)</span>
+                        <div class="bg-dark-900 px-4 py-2 rounded-lg border border-white/5 mb-4 shadow-inner">
+                            <span id="val-r" class="font-mono text-xl font-bold text-amber-400 drop-shadow-[0_0_8px_rgba(245,158,11,0.6)]">10.0 Ω</span>
+                        </div>
                         <div class="flex gap-3 w-full h-12">
-                            <button onclick="changeR(-1)" class="flex-1 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-xl text-white flex items-center justify-center transition cursor-pointer active:scale-95 text-lg font-bold"><i class="fa-solid fa-minus"></i></button>
-                            <button onclick="changeR(1)" class="flex-1 bg-amber-600 hover:bg-amber-500 border border-amber-500/50 rounded-xl text-white flex items-center justify-center transition cursor-pointer active:scale-95 text-lg font-bold"><i class="fa-solid fa-plus"></i></button>
+                            <button onclick="changeR(-1)" class="flex-1 bg-dark-700 hover:bg-dark-600 border border-white/5 rounded-xl text-white flex items-center justify-center transition-all cursor-pointer active:scale-95 text-lg shadow-md hover:shadow-amber-900/30">
+                                <i class="fa-solid fa-minus"></i>
+                            </button>
+                            <button onclick="changeR(1)" class="flex-1 bg-gradient-to-b from-amber-500 to-amber-700 hover:from-amber-400 hover:to-amber-600 rounded-xl text-white flex items-center justify-center transition-all cursor-pointer active:scale-95 text-lg shadow-[0_0_15px_rgba(245,158,11,0.4)] border border-amber-400/50">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
 
             </div>
             
-            <div class="bg-blue-950/40 border border-blue-900/50 p-5 rounded-2xl flex gap-4 items-start shadow-md">
-                <i class="fa-solid fa-circle-info text-blue-400 text-lg mt-0.5 shrink-0"></i>
-                <p class="text-sm text-slate-300 leading-relaxed">
-                    สังเกตการเปลี่ยนแปลงของแท่งกราฟและขนาดตัวอักษร <strong>V, I, R</strong> เมื่อคุณกดเพิ่มหรือลดค่า จะช่วยให้เข้าใจความสัมพันธ์ทางคณิตศาสตร์ในกฎของโอห์มได้อย่างชัดเจนยิ่งขึ้น
-                </p>
-            </div>
-            
-        </aside>
+        </section>
 
     </main>
 
     <!-- Learning Modal Popup -->
-    <div id="learning-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[100] flex items-center justify-center p-4 hidden">
-        <div class="bg-slate-900 border border-slate-700 w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
-            <div class="bg-slate-800 px-6 py-4 border-b border-slate-700 flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <div class="w-9 h-9 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center border border-blue-500/30">
-                        <i class="fa-solid fa-graduation-cap"></i>
+    <div id="learning-modal" class="fixed inset-0 bg-black/60 backdrop-blur-md z-[100] flex items-center justify-center p-4 hidden transition-opacity">
+        <div class="bg-dark-800 border border-white/10 w-full max-w-3xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] ring-1 ring-white/5">
+            <div class="bg-dark-900/50 px-6 py-5 border-b border-white/5 flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-500 text-white flex items-center justify-center shadow-lg shadow-blue-500/20">
+                        <i class="fa-solid fa-graduation-cap text-lg"></i>
                     </div>
-                    <h3 class="font-bold text-base sm:text-lg text-slate-100">บทเรียน: กฎของโอห์ม (Ohm's Law)</h3>
+                    <h3 class="font-bold text-lg md:text-xl text-white">บทเรียน: กฎของโอห์ม (Ohm's Law)</h3>
                 </div>
-                <button onclick="closeLearningModal()" class="w-9 h-9 rounded-xl bg-slate-700 hover:bg-slate-600 text-slate-300 flex items-center justify-center transition cursor-pointer">
-                    <i class="fa-solid fa-xmark"></i>
+                <button onclick="closeLearningModal()" class="w-10 h-10 rounded-full hover:bg-white/10 text-slate-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer">
+                    <i class="fa-solid fa-xmark text-xl"></i>
                 </button>
             </div>
-            <div class="p-6 overflow-y-auto space-y-5 text-slate-300 text-sm sm:text-base leading-relaxed">
-                <div class="bg-blue-950/40 border border-blue-500/30 p-5 rounded-2xl">
-                    <h4 class="font-semibold text-blue-400 mb-2 flex items-center gap-2 text-base"><i class="fa-solid fa-lightbulb"></i> ความหมายของกฎของโอห์ม</h4>
-                    <p class="text-xs sm:text-sm text-slate-300">กฎของโอห์มเป็นกฎพื้นฐานในทางไฟฟ้า ซึ่งกล่าวถึงความสัมพันธ์ระหว่างความต่างศักย์ (Voltage - V) กระแสไฟฟ้า (Current - I) และความต้านทาน (Resistance - R) ในวงจรไฟฟ้ากระแสตรง</p>
+            <div class="p-6 md:p-8 overflow-y-auto space-y-6 text-slate-300 text-sm md:text-base leading-relaxed custom-scrollbar">
+                
+                <div class="bg-blue-900/20 border border-blue-500/20 p-6 rounded-2xl relative overflow-hidden">
+                    <div class="absolute -right-4 -top-4 text-blue-500/10 text-8xl"><i class="fa-solid fa-lightbulb"></i></div>
+                    <h4 class="font-semibold text-blue-400 mb-3 flex items-center gap-2 text-lg relative z-10"><i class="fa-solid fa-book-open"></i> ความหมายของกฎของโอห์ม</h4>
+                    <p class="text-slate-300 relative z-10 text-base">กฎของโอห์มเป็นกฎพื้นฐานในทางไฟฟ้า ซึ่งกล่าวถึงความสัมพันธ์ระหว่างความต่างศักย์ (Voltage - V) กระแสไฟฟ้า (Current - I) และความต้านทาน (Resistance - R) ในวงจรไฟฟ้ากระแสตรง</p>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <div class="bg-slate-800/80 border border-slate-700 p-4 rounded-2xl text-center shadow-lg">
-                        <span class="text-3xl font-bold font-mono text-blue-400">V</span>
-                        <p class="font-semibold text-sm text-slate-200 mt-2">Voltage (แรงดันไฟฟ้า)</p>
-                        <p class="text-xs text-slate-400 mt-1">หน่วย: โวลต์ (V)</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <div class="bg-dark-900/50 border border-white/5 p-5 rounded-2xl text-center shadow-inner hover:border-blue-500/30 transition-colors">
+                        <span class="text-4xl font-bold font-mono text-blue-400 drop-shadow-[0_0_8px_rgba(59,130,246,0.6)]">V</span>
+                        <p class="font-semibold text-white mt-3">Voltage (แรงดันไฟฟ้า)</p>
+                        <p class="text-sm text-slate-400 mt-1">หน่วย: โวลต์ (V)</p>
                     </div>
-                    <div class="bg-slate-800/80 border border-slate-700 p-4 rounded-2xl text-center shadow-lg">
-                        <span class="text-3xl font-bold font-mono text-emerald-400">I</span>
-                        <p class="font-semibold text-sm text-slate-200 mt-2">Current (กระแสไฟฟ้า)</p>
-                        <p class="text-xs text-slate-400 mt-1">หน่วย: แอมแปร์ (A)</p>
+                    <div class="bg-dark-900/50 border border-white/5 p-5 rounded-2xl text-center shadow-inner hover:border-emerald-500/30 transition-colors">
+                        <span class="text-4xl font-bold font-mono text-emerald-400 drop-shadow-[0_0_8px_rgba(16,185,129,0.6)]">I</span>
+                        <p class="font-semibold text-white mt-3">Current (กระแสไฟฟ้า)</p>
+                        <p class="text-sm text-slate-400 mt-1">หน่วย: แอมแปร์ (A)</p>
                     </div>
-                    <div class="bg-slate-800/80 border border-slate-700 p-4 rounded-2xl text-center shadow-lg">
-                        <span class="text-3xl font-bold font-mono text-amber-400">R</span>
-                        <p class="font-semibold text-sm text-slate-200 mt-2">Resistance (ความต้านทาน)</p>
-                        <p class="text-xs text-slate-400 mt-1">หน่วย: โอห์ม (Ω)</p>
+                    <div class="bg-dark-900/50 border border-white/5 p-5 rounded-2xl text-center shadow-inner hover:border-amber-500/30 transition-colors">
+                        <span class="text-4xl font-bold font-mono text-amber-400 drop-shadow-[0_0_8px_rgba(245,158,11,0.6)]">R</span>
+                        <p class="font-semibold text-white mt-3">Resistance (ความต้านทาน)</p>
+                        <p class="text-sm text-slate-400 mt-1">หน่วย: โอห์ม (Ω)</p>
                     </div>
                 </div>
 
-                <div class="bg-slate-800/50 border border-slate-700/60 p-5 rounded-2xl space-y-3">
-                    <h4 class="font-semibold text-slate-200 text-xs uppercase tracking-wider text-indigo-400">สูตรคำนวณหลัก</h4>
-                    <div class="flex flex-col sm:flex-row justify-around items-center gap-3 bg-slate-900/90 p-4 rounded-xl font-mono text-base sm:text-lg">
-                        <span class="text-blue-400 font-bold">V = I × R</span>
-                        <span class="text-emerald-400 font-bold">I = V ÷ R</span>
-                        <span class="text-amber-400 font-bold">R = V ÷ I</span>
+                <div class="bg-dark-700/30 border border-white/5 p-6 rounded-2xl space-y-4">
+                    <h4 class="font-semibold text-slate-400 text-xs uppercase tracking-[0.2em]">สูตรคำนวณหลัก</h4>
+                    <div class="flex flex-col sm:flex-row justify-around items-center gap-4 bg-dark-900/80 p-5 rounded-xl font-mono text-lg md:text-xl border border-white/5">
+                        <span class="text-blue-400 font-bold bg-blue-500/10 px-4 py-2 rounded-lg">V = I × R</span>
+                        <span class="text-emerald-400 font-bold bg-emerald-500/10 px-4 py-2 rounded-lg">I = V ÷ R</span>
+                        <span class="text-amber-400 font-bold bg-amber-500/10 px-4 py-2 rounded-lg">R = V ÷ I</span>
                     </div>
                 </div>
             </div>
-            <div class="bg-slate-800 px-6 py-4 border-t border-slate-700 flex justify-end">
-                <button onclick="closeLearningModal()" class="bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition cursor-pointer shadow-lg">เข้าใจแล้ว</button>
+            <div class="bg-dark-900/50 px-6 py-5 border-t border-white/5 flex justify-end">
+                <button onclick="closeLearningModal()" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-6 py-2.5 rounded-xl transition-colors cursor-pointer shadow-[0_0_15px_rgba(37,99,235,0.4)]">เข้าใจแล้ว</button>
             </div>
         </div>
     </div>
 
     <!-- Ohm's History Modal Popup -->
-    <div id="history-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[100] flex items-center justify-center p-4 hidden">
-        <div class="bg-slate-900 border border-slate-700 w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
-            <div class="bg-slate-800 px-6 py-4 border-b border-slate-700 flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <div class="w-9 h-9 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center border border-amber-500/30">
-                        <i class="fa-solid fa-user-tie"></i>
+    <div id="history-modal" class="fixed inset-0 bg-black/60 backdrop-blur-md z-[100] flex items-center justify-center p-4 hidden transition-opacity">
+        <div class="bg-dark-800 border border-white/10 w-full max-w-3xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] ring-1 ring-white/5">
+            <div class="bg-dark-900/50 px-6 py-5 border-b border-white/5 flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-600 to-orange-500 text-white flex items-center justify-center shadow-lg shadow-amber-500/20">
+                        <i class="fa-solid fa-user-tie text-lg"></i>
                     </div>
-                    <h3 class="font-bold text-base sm:text-lg text-slate-100">ประวัติจอร์จ ซีมอน โอห์ม</h3>
+                    <h3 class="font-bold text-lg md:text-xl text-white">ประวัติจอร์จ ซีมอน โอห์ม</h3>
                 </div>
-                <button onclick="closeHistoryModal()" class="w-9 h-9 rounded-xl bg-slate-700 hover:bg-slate-600 text-slate-300 flex items-center justify-center transition cursor-pointer">
-                    <i class="fa-solid fa-xmark"></i>
+                <button onclick="closeHistoryModal()" class="w-10 h-10 rounded-full hover:bg-white/10 text-slate-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer">
+                    <i class="fa-solid fa-xmark text-xl"></i>
                 </button>
             </div>
-            <div class="p-6 overflow-y-auto flex flex-col md:flex-row gap-6">
+            <div class="p-6 md:p-8 overflow-y-auto flex flex-col md:flex-row gap-8 custom-scrollbar">
+                
                 <!-- Image Section -->
                 <div class="shrink-0 flex justify-center md:block">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Georg_Simon_Ohm3.jpg?utm_source=th.wikipedia.org&utm_campaign=index&utm_content=original" alt="Georg Simon Ohm" class="w-36 md:w-44 h-auto rounded-2xl border-4 border-slate-700 shadow-2xl object-cover bg-slate-800">
+                    <div class="relative group">
+                        <div class="absolute inset-0 bg-amber-500/20 rounded-2xl blur-xl group-hover:bg-amber-500/30 transition-colors"></div>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Georg_Simon_Ohm3.jpg?utm_source=th.wikipedia.org&utm_campaign=index&utm_content=original" alt="Georg Simon Ohm" class="relative w-40 md:w-48 h-auto rounded-2xl border border-white/10 shadow-2xl object-cover bg-dark-900 z-10 grayscale hover:grayscale-0 transition-all duration-500">
+                    </div>
                 </div>
                 
                 <!-- History Content -->
-                <div class="space-y-4">
+                <div class="space-y-5">
                     <div>
-                        <h4 class="font-bold text-amber-400 text-lg sm:text-xl">จอร์จ ซีมอน โอห์ม (Georg Simon Ohm)</h4>
-                        <p class="text-xs text-slate-400 font-mono mt-1">16 มีนาคม พ.ศ. 2332 – 6 กรกฎาคม พ.ศ. 2397</p>
+                        <h4 class="font-bold text-amber-400 text-xl md:text-2xl drop-shadow-[0_0_8px_rgba(245,158,11,0.4)]">จอร์จ ซีมอน โอห์ม (Georg Simon Ohm)</h4>
+                        <p class="text-sm text-slate-400 font-mono mt-1 bg-dark-900 inline-block px-3 py-1 rounded-full border border-white/5">16 มี.ค. พ.ศ. 2332 – 6 ก.ค. พ.ศ. 2397</p>
                     </div>
                     
-                    <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+                    <p class="text-base text-slate-300 leading-relaxed">
                         นักฟิสิกส์และนักคณิตศาสตร์ชาวเยอรมัน ผู้ทำการค้นคว้าและทดลองเกี่ยวกับไฟฟ้ากระแสตรง เขาได้ค้นพบความสัมพันธ์พื้นฐานที่สำคัญยิ่งในวงจรไฟฟ้า 
                     </p>
                     
-                    <div class="bg-amber-950/30 border border-amber-500/30 p-4 rounded-2xl">
-                        <h5 class="text-xs sm:text-sm font-semibold text-amber-300 mb-2 flex items-center gap-2"><i class="fa-solid fa-lightbulb"></i> การค้นพบที่สำคัญ (ปี ค.ศ. 1827)</h5>
-                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                    <div class="bg-gradient-to-r from-amber-900/30 to-orange-900/10 border-l-4 border-amber-500 p-5 rounded-r-2xl">
+                        <h5 class="text-sm font-bold text-amber-300 mb-2 flex items-center gap-2"><i class="fa-solid fa-flask"></i> การค้นพบที่สำคัญ (ปี ค.ศ. 1827)</h5>
+                        <p class="text-sm text-slate-300 leading-relaxed">
                             โอห์มได้ตีพิมพ์ผลงานที่อธิบายว่า <span class="text-white font-medium bg-amber-500/20 px-2 py-0.5 rounded inline-block my-1 border border-amber-500/30">"กระแสไฟฟ้าที่ไหลผ่านตัวนำ จะแปรผันตรงกับความต่างศักย์ และแปรผกผันกับความต้านทาน"</span> ซึ่งต่อมาได้รับการยอมรับในวงกว้างและถูกตั้งชื่อว่า <strong>"กฎของโอห์ม" (Ohm's Law)</strong>
                         </p>
                     </div>
                     
-                    <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
-                        เพื่อเป็นเกียรติแก่ผลงานอันทรงคุณค่า ชื่อของเขาจึงถูกนำมาตั้งเป็นชื่อหน่วยวัดความต้านทานไฟฟ้า <strong>"โอห์ม"</strong> โดยใช้สัญลักษณ์ตัวอักษรกรีกโอเมกา <strong>(Ω)</strong>
+                    <p class="text-base text-slate-300 leading-relaxed">
+                        เพื่อเป็นเกียรติแก่ผลงานอันทรงคุณค่า ชื่อของเขาจึงถูกนำมาตั้งเป็นชื่อหน่วยวัดความต้านทานไฟฟ้า <strong class="text-white">"โอห์ม"</strong> โดยใช้สัญลักษณ์ตัวอักษรกรีกโอเมกา <strong class="text-amber-400 text-lg mx-1 drop-shadow-[0_0_5px_rgba(245,158,11,0.5)]">(Ω)</strong>
                     </p>
                 </div>
             </div>
-            <div class="bg-slate-800 px-6 py-4 border-t border-slate-700 flex justify-end">
-                <button onclick="closeHistoryModal()" class="bg-slate-700 hover:bg-slate-600 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition cursor-pointer border border-slate-600 shadow-lg">ปิดหน้าต่าง</button>
+            <div class="bg-dark-900/50 px-6 py-5 border-t border-white/5 flex justify-end">
+                <button onclick="closeHistoryModal()" class="bg-dark-700 hover:bg-dark-600 text-white font-semibold px-6 py-2.5 rounded-xl transition-colors cursor-pointer border border-white/10">ปิดหน้าต่าง</button>
             </div>
         </div>
     </div>
@@ -310,7 +437,10 @@
     <script>
         // --- Modal Control Functions ---
         function openLearningModal() {
-            document.getElementById('learning-modal').classList.remove('hidden');
+            const modal = document.getElementById('learning-modal');
+            modal.classList.remove('hidden');
+            // Small delay to allow display:block to apply before animating opacity
+            setTimeout(() => modal.classList.add('opacity-100'), 10);
         }
         function closeLearningModal() {
             document.getElementById('learning-modal').classList.add('hidden');
@@ -325,7 +455,7 @@
 
         function reloadIframe() {
             const iframe = document.getElementById('phet-iframe');
-            iframe.src = iframe.src;
+            iframe.src = iframe.src; // Reloads the iframe
         }
 
         // --- Unified Ohm's Law Simulator Logic ---
@@ -334,6 +464,7 @@
         let r_val = 10.0;
         let i_val = 1.0;
 
+        // Limits corresponding roughly to PhET
         const MAX_V = 30.0;
         const MIN_V = 1.0;
         const MAX_R = 30.0;
@@ -345,30 +476,32 @@
 
         function changeV(delta) {
             v_val = clamp(v_val + delta, MIN_V, MAX_V);
-            i_val = v_val / r_val;
+            i_val = v_val / r_val; // Ohm's Law: I = V/R
             
             let status = "";
-            if (delta > 0) status = '<span class="text-emerald-300 font-semibold">V เพิ่ม ➔ I เพิ่มขึ้นตาม (R คงที่)</span>';
-            else status = '<span class="text-rose-300 font-semibold">V ลด ➔ I ลดลงตาม (R คงที่)</span>';
+            if (delta > 0) status = '<span class="text-emerald-400 font-semibold drop-shadow-[0_0_5px_rgba(52,211,153,0.5)]">V เพิ่ม ➔ I เพิ่มขึ้นตาม</span> <span class="text-slate-400 text-sm ml-2 font-normal">(R คงที่)</span>';
+            else status = '<span class="text-cyan-400 font-semibold drop-shadow-[0_0_5px_rgba(34,211,238,0.5)]">V ลด ➔ I ลดลงตาม</span> <span class="text-slate-400 text-sm ml-2 font-normal">(R คงที่)</span>';
             
             updateUnifiedUI(status);
         }
 
         function changeR(delta) {
             r_val = clamp(r_val + delta, MIN_R, MAX_R);
-            i_val = v_val / r_val;
+            i_val = v_val / r_val; // Ohm's Law: I = V/R
             
             let status = "";
-            if (delta > 0) status = '<span class="text-rose-300 font-semibold">R เพิ่ม ➔ I ลดลง (V คงที่)</span>';
-            else status = '<span class="text-emerald-300 font-semibold">R ลด ➔ I เพิ่มขึ้น (V คงที่)</span>';
+            if (delta > 0) status = '<span class="text-amber-400 font-semibold drop-shadow-[0_0_5px_rgba(251,191,36,0.5)]">R เพิ่ม ➔ I ลดลง</span> <span class="text-slate-400 text-sm ml-2 font-normal">(V คงที่)</span>';
+            else status = '<span class="text-emerald-400 font-semibold drop-shadow-[0_0_5px_rgba(52,211,153,0.5)]">R ลด ➔ I เพิ่มขึ้น</span> <span class="text-slate-400 text-sm ml-2 font-normal">(V คงที่)</span>';
             
             updateUnifiedUI(status);
         }
 
         function changeI(delta) {
             let new_i = Math.max(0.1, i_val + delta); 
+            // If we change I, we assume R is constant, so V must change to support it
             let new_v = new_i * r_val;
             
+            // Constrain V
             if (new_v > MAX_V) {
                 new_v = MAX_V;
                 new_i = new_v / r_val;
@@ -381,41 +514,63 @@
             i_val = new_i;
 
             let status = "";
-            if (delta > 0) status = '<span class="text-blue-300 font-semibold">ต้องการ I เพิ่ม ➔ ต้องใช้ V เพิ่ม (R คงที่)</span>';
-            else status = '<span class="text-blue-300 font-semibold">ต้องการ I ลด ➔ ใช้ V ลดลง (R คงที่)</span>';
+            if (delta > 0) status = '<span class="text-blue-400 font-semibold drop-shadow-[0_0_5px_rgba(96,165,250,0.5)]">ต้องการ I เพิ่ม ➔ ต้องใช้ V เพิ่ม</span> <span class="text-slate-400 text-sm ml-2 font-normal">(R คงที่)</span>';
+            else status = '<span class="text-blue-400 font-semibold drop-shadow-[0_0_5px_rgba(96,165,250,0.5)]">ต้องการ I ลด ➔ ใช้ V ลดลง</span> <span class="text-slate-400 text-sm ml-2 font-normal">(R คงที่)</span>';
             
             updateUnifiedUI(status);
         }
 
         function updateUnifiedUI(statusHTML = '<span class="text-slate-300">พร้อมทดลองปรับค่า</span>') {
+            // Update Text Values
             document.getElementById('val-v').innerText = v_val.toFixed(1) + ' V';
             document.getElementById('val-r').innerText = r_val.toFixed(1) + ' Ω';
             document.getElementById('val-i').innerText = i_val.toFixed(2) + ' A';
             
+            // Update Status Screen
             const statusEl = document.getElementById('relationship-status');
             statusEl.innerHTML = statusHTML;
-            statusEl.style.transform = 'scale(1.02)';
-            setTimeout(() => { statusEl.style.transform = 'scale(1)'; }, 200);
+            // Pop animation for status
+            statusEl.style.transform = 'scale(1.03)';
+            statusEl.style.textShadow = '0 0 10px rgba(255,255,255,0.2)';
+            setTimeout(() => { 
+                statusEl.style.transform = 'scale(1)'; 
+                statusEl.style.textShadow = 'none';
+            }, 300);
 
+            // Update Bar Heights
             document.getElementById('bar-v').style.height = (v_val / MAX_V * 100) + '%';
             document.getElementById('bar-r').style.height = (r_val / MAX_R * 100) + '%';
             
+            // I max is technically 30/1 = 30A, but usually much lower. Let's cap visual I bar max at 5A for better scaling
             let i_percent = (i_val / 5.0 * 100); 
             if (i_percent > 100) i_percent = 100;
             document.getElementById('bar-i').style.height = i_percent + '%';
 
-            let scaleV = 0.7 + (v_val / MAX_V * 0.8);
-            let scaleR = 0.7 + (r_val / MAX_R * 0.8);
-            let scaleI = 0.6 + (i_val / 3.0 * 1.2);
-            if (scaleI > 1.8) scaleI = 1.8;
+            // Update Letter Scales (The V=IR visual representation)
+            // Base scale + percentage of max value
+            let scaleV = 0.5 + (v_val / MAX_V * 1.0); // 0.5 to 1.5
+            let scaleR = 0.5 + (r_val / MAX_R * 1.0);
+            // I changes more dramatically, cap the visual size
+            let scaleI = 0.4 + (i_val / 3.0 * 1.2); 
+            if (scaleI > 2.0) scaleI = 2.0;
 
-            document.getElementById('text-v').style.transform = `scale(${scaleV})`;
-            document.getElementById('text-r').style.transform = `scale(${scaleR})`;
-            document.getElementById('text-i').style.transform = `scale(${scaleI})`;
+            const textV = document.getElementById('text-v');
+            const textR = document.getElementById('text-r');
+            const textI = document.getElementById('text-i');
+
+            textV.style.transform = `scale(${scaleV})`;
+            textR.style.transform = `scale(${scaleR})`;
+            textI.style.transform = `scale(${scaleI})`;
+
+            // Adjust glow based on scale/power
+            textV.style.opacity = 0.7 + (v_val / MAX_V * 0.3);
+            textR.style.opacity = 0.7 + (r_val / MAX_R * 0.3);
+            textI.style.opacity = 0.6 + (i_val / 5.0 * 0.4);
         }
 
+        // Initialize UI on load
         window.onload = function() {
-            updateUnifiedUI('<span class="text-blue-300">พร้อมทดลอง: กด <i class="fa-solid fa-plus text-xs"></i> หรือ <i class="fa-solid fa-minus text-xs"></i> ที่ตัวแปรด้านล่าง</span>');
+            updateUnifiedUI('<span class="text-cyan-400 font-medium tracking-wide drop-shadow-[0_0_5px_rgba(34,211,238,0.5)]"><i class="fa-solid fa-wand-magic-sparkles mr-2"></i> ระบบพร้อมทำงาน ลองปรับค่าด้านล่าง</span>');
         }
     </script>
 </body>
